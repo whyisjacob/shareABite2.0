@@ -1,5 +1,5 @@
 body {
-    padding-top: 110px;
+    padding-top: 90px;
 }
 
 a{
@@ -9,13 +9,6 @@ a{
         color:darken($brand, 30%);
         text-decoration: none;
     }
-}
-
-.navbar {
-    padding-top: 15px;
-    height: 110px;
-    border-bottom: 1px solid #999;
-    background: #fff;
 }
 
 .menu {
@@ -43,27 +36,7 @@ a{
     text-align: center;
 }
 
-.navigation {
-    position: fixed;
-    top: 69px;
-    height: 50%;
-    width: 50%;
-    z-index: 270;
-    background: white;
-    font-size: 50px;
-    line-height: 75px;
-    border: 1px solid #999;
-}
 
-.navigation>div {
-    cursor: pointer;
-    border-bottom: 1px solid #999;
-    padding-left: 25px;
-}
-
-.navigation>div:hover {
-    background-color: #999;
-}
 
 .btn-primary {
     color: white !important;

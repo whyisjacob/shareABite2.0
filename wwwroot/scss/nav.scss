@@ -1,0 +1,27 @@
+.navbar {
+	height: 90px;
+	border-bottom: 1px solid #999;
+	background: #fff;
+	border-top:5px solid $brand;
+}
+
+.navbar {
+	.navbar-nav {
+		li>a {
+			color: $brand !important;
+			font-size: 1.1em;
+			padding-top:34px;
+			&:hover{
+				text-decoration: underline;
+			}
+		}
+	}
+}
+
+.navbar-brand{
+	text-align: center;
+	margin:0 auto;
+	img{
+		width:115px;  
+	}
+} 
