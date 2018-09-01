@@ -1,5 +1,10 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+	@inject UserManager<IdentityUser> UserManager
+
+@{
 ViewData["Title"] = "Share-A-Bite: Sharing family recipes for years to come";
+string UserName = "Joseph Smith";
 }
 
 <div class="row">
@@ -21,11 +26,11 @@ ViewData["Title"] = "Share-A-Bite: Sharing family recipes for years to come";
                         <input type="text" class="form-control" placeholder="hungry?" aria-describedby="sizing-addon1" id="search-input">
                     </div> -->
                 <br>
-                <a href="#main">
-                    <span class="glyphicon glyphicon-chevron-down"></span>
+                <a class="scroll_helper" href="#home_content">
+                    <i class="fa fa-chevron-circle-down" aria-hidden="true"></i>
                 </a>
             </h2>
-
+            <div id="home_content"></div>
         </div>
     </div>
 </div>
@@ -73,99 +78,16 @@ ViewData["Title"] = "Share-A-Bite: Sharing family recipes for years to come";
 </div>
 <div class=" home_recipe_container">
     <div class="row">
-        <div class="col-sm-6 ">
-            <h2>
-                <span class="text-center" id="title">Popular Recipes</span>
-            </h2>
-            <div class="row">
-                <div class="col-sm-4 home_recipe" id="recipe_1">
-                    <h3 id='recipe1_title' class="recipe_title">
-                        Some Awesome Recipe
-                    </h3>
-                    <img id='recipe1_image' src="#" class="recipe_image" />
-                    <p id="recipe1_sdesc" class="recipe_desc">
-                        sadfasdfasdf asdff
-                    </p>
-                    <a id="recipe1_url" href="#" class="recipe_url">
+        <partial name="_PopularRecipes" />
+        <partial name="_RecentRecipes" />
 
-                    </a>
-                </div>
-                <div class="col-sm-4 home_recipe" id="recipe_1">
-                    <h3 id='recipe1_title' class="recipe_title">
-                        Some Awesome Recipe
-                    </h3>
-                    <img id='recipe1_image' src="#" class="recipe_image" />
-                    <p id="recipe1_sdesc" class="recipe_desc">
-                        sadfasdfasdf asdff
-                    </p>
-                    <a id="recipe1_url" href="#" class="recipe_url">
-
-                    </a>
-                </div>
-                <div class="col-sm-4 home_recipe" id="recipe_1">
-                    <h3 id='recipe1_title' class="recipe_title">
-                        Some Awesome Recipe
-                    </h3>
-                    <img id='recipe1_image' src="#" class="recipe_image" />
-                    <p id="recipe1_sdesc" class="recipe_desc">
-                        sadfasdfasdf asdff
-                    </p>
-                    <a id="recipe1_url" href="#" class="recipe_url">
-
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6 ">
-            <h2>
-                <span class="text-center" id="title">Recent Recipes</span>
-            </h2>
-            <div class="row">
-                <div class="col-sm-4 home_recipe" id="recipe_1">
-                    <h3 id='recipe1_title' class="recipe_title">
-                        Some Awesome Recipe
-                    </h3>
-                    <img id='recipe1_image' src="#" class="recipe_image" />
-                    <p id="recipe1_sdesc" class="recipe_desc">
-                        sadfasdfasdf asdff
-                    </p>
-                    <a id="recipe1_url" href="#" class="recipe_url">
-
-                    </a>
-                </div>
-                <div class="col-sm-4 home_recipe" id="recipe_1">
-                    <h3 id='recipe1_title' class="recipe_title">
-                        Some Awesome Recipe
-                    </h3>
-                    <img id='recipe1_image' src="#" class="recipe_image" />
-                    <p id="recipe1_sdesc" class="recipe_desc">
-                        sadfasdfasdf asdff
-                    </p>
-                    <a id="recipe1_url" href="#" class="recipe_url">
-
-                    </a>
-                </div>
-                <div class="col-sm-4 home_recipe" id="recipe_1">
-                    <h3 id='recipe1_title' class="recipe_title">
-                        Some Awesome Recipe
-                    </h3>
-                    <img id='recipe1_image' src="#" class="recipe_image" />
-                    <p id="recipe1_sdesc" class="recipe_desc">
-                        sadfasdfasdf asdff
-                    </p>
-                    <a id="recipe1_url" href="#" class="recipe_url">
-
-                    </a>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 <div class="container">
     <div class="row">
         <div class="col-sm-12 arrow-btn">
             <div class="pulse-btn" onclick="window.location.href='login.html'">
-                <a href="login.html">Save Your Own Recipes Today</a>
+                <a href="login.html">Add Your Own Recipes Today</a>
                 <div class="bg"></div>
             </div>
         </div>
@@ -177,6 +99,17 @@ ViewData["Title"] = "Share-A-Bite: Sharing family recipes for years to come";
 
 
 <script src="~/js/typewriter.js"></script>
+@if (SignInManager.IsSignedIn(User))
+{
+<script>
+    var myName = "@UserManager.GetUserName(User)";
+</script>
+}else{
+<script>
+    var myName = "You";
+</script>
+}
+
 <script>
     $('#body-content').removeClass('container').addClass('container-fluid');
 
@@ -198,7 +131,7 @@ ViewData["Title"] = "Share-A-Bite: Sharing family recipes for years to come";
         .typeString('Friends!')
         .pauseFor(2500)
         .deleteChars(8)
-        .typeString('Forever!')
+        .typeString(myName)
         .pauseFor(2500)
         .start();
 </script>
@@ -206,7 +139,7 @@ ViewData["Title"] = "Share-A-Bite: Sharing family recipes for years to come";
 
 
 
-<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
+<div id="myCarousel" class="carousel slide hidden" data-ride="carousel" data-interval="6000">
     <ol class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
         <li data-target="#myCarousel" data-slide-to="1"></li>
@@ -257,7 +190,7 @@ ViewData["Title"] = "Share-A-Bite: Sharing family recipes for years to come";
     </a>
 </div>
 
-<div class="row">
+<div class="row hidden">
     <div class="col-md-3">
         <h2>Application uses</h2>
         <ul>

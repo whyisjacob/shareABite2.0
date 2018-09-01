@@ -33,7 +33,6 @@ h3 {
 	padding-right: 5px;
 }
 
-
 .description {
 	font-size: 17px;
 	line-height: 28px;
@@ -102,30 +101,36 @@ h4>div {
 	margin-bottom: 30px;
 	letter-spacing: .5px;
 }
-.home_recipe_container{
-	background-color:$secondary;
+
+.home_recipe_container {
+	background-color: $secondary;
 	padding: 30px;
 
-	.home_recipe{
-		padding:20px;
-		&:hover{
-			background-color:#ffffff;
+	.home_recipe {
+		padding: 20px;
+
+		&:hover {
+			background-color: lighten($focus, 40%);
 			cursor: pointer;
+			-webkit-box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.75);
+			-moz-box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.75);
+			box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.75);
 		}
-		.recipe_title{
-			color:$brand;
+
+		.recipe_title {
+			color: $brand;
 			font-weight: 800;
 		}
-		.recipe_image{
-			background:grey;
-			img{
-				width:auto;
-				height:75px;
+
+		.recipe_image {
+			background: grey;
+
+			img {
+				width: auto;
+				height: 75px;
 			}
 		}
-		.recipe_url{
-	
-		}
+
+		.recipe_url {}
 	}
-	
 }
