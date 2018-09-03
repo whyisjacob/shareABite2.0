@@ -3,6 +3,12 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <UserSecretsId>aspnet-CLI-AB2B1CBC-C133-439D-852A-12D4EA479681</UserSecretsId>
+    <AssemblyName>CLI</AssemblyName>
+    <RootNamespace>CLI</RootNamespace>
+    <Copyright>2018 TheHashbrown Creative Services, LLC</Copyright>
+    <PackageProjectUrl>www.share-a-bite.com</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/whyisjacob/shareABite2.0</RepositoryUrl>
+    <RepositoryType>GitHub</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>

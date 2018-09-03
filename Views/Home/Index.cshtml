@@ -1,10 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
-	@inject UserManager<IdentityUser> UserManager
+@inject UserManager<IdentityUser> UserManager
 
 @{
-ViewData["Title"] = "Share-A-Bite: Sharing family recipes for years to come";
-string UserName = "Joseph Smith";
+    ViewData["Title"] = "Share-A-Bite: Sharing family recipes for years to come";
 }
 
 <div class="row">
@@ -78,36 +77,56 @@ string UserName = "Joseph Smith";
 </div>
 <div class=" home_recipe_container">
     <div class="row">
-        <partial name="_PopularRecipes" />
-        <partial name="_RecentRecipes" />
-
-    </div>
-</div>
-<div class="container">
-    <div class="row">
-        <div class="col-sm-12 arrow-btn">
-            <div class="pulse-btn" onclick="window.location.href='login.html'">
-                <a href="login.html">Add Your Own Recipes Today</a>
-                <div class="bg"></div>
-            </div>
+        <div class="col-sm-6 ">
+            <partial name="_PopularRecipes" />
         </div>
-
+        <div class="col-sm-6 ">
+            <partial name="_RecentRecipes" />
+        </div>
     </div>
 </div>
 
+@if (SignInManager.IsSignedIn(User))
+{
+    <div class="container">
+        <div class="row">
+            <a asp-area="" asp-controller="Recipes" asp-action="NewRecipe" class="col-sm-12 arrow-btn">
+                <div class="pulse-btn">
+                    <div>Add Your Own Recipes Today</div>
+                    <div class="bg"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+}
+else
+{
+    <div class="container">
+        <div class="row">
+            <a asp-area="Identity" asp-page="/Account/Login" class="col-sm-12 arrow-btn">
+                <div class="pulse-btn">
+                    <div>Add Your Own Recipes Today</div>
+                    <div class="bg"></div>
+                </div>
+            </a>
 
+        </div>
+    </div>
+}
 
 
 <script src="~/js/typewriter.js"></script>
 @if (SignInManager.IsSignedIn(User))
 {
-<script>
+    <script>
     var myName = "@UserManager.GetUserName(User)";
-</script>
-}else{
-<script>
-    var myName = "You";
-</script>
+    </script>
+}
+else
+{
+    <script>
+        var myName = "You";
+    </script>
 }
 
 <script>
@@ -205,16 +224,24 @@ string UserName = "Joseph Smith";
             <li><a href="https://go.microsoft.com/fwlink/?LinkId=699315">Manage User Secrets using Secret Manager.</a></li>
             <li><a href="https://go.microsoft.com/fwlink/?LinkId=699316">Use logging to log a message.</a></li>
             <li><a href="https://go.microsoft.com/fwlink/?LinkId=699317">Add packages using NuGet.</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699319">Target development, staging or production
-                    environment.</a></li>
+            <li>
+                <a href="https://go.microsoft.com/fwlink/?LinkId=699319">
+                    Target development, staging or production
+                    environment.
+                </a>
+            </li>
         </ul>
     </div>
     <div class="col-md-3">
         <h2>Overview</h2>
         <ul>
             <li><a href="https://go.microsoft.com/fwlink/?LinkId=518008">Conceptual overview of what is ASP.NET Core</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699320">Fundamentals of ASP.NET Core such as Startup
-                    and middleware.</a></li>
+            <li>
+                <a href="https://go.microsoft.com/fwlink/?LinkId=699320">
+                    Fundamentals of ASP.NET Core such as Startup
+                    and middleware.
+                </a>
+            </li>
             <li><a href="https://go.microsoft.com/fwlink/?LinkId=398602">Working with Data</a></li>
             <li><a href="https://go.microsoft.com/fwlink/?LinkId=398603">Security</a></li>
             <li><a href="https://go.microsoft.com/fwlink/?LinkID=699321">Client side development</a></li>

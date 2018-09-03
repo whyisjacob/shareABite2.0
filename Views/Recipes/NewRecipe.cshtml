@@ -1,0 +1,22 @@
+@model CLI.Models.NewRecipe;
+@{
+    ViewData["Title"] = "Share-A-Bite: Add a New Recipe";
+}
+
+<h1>Create a new recipe</h1>
+<p>
+    Thank you for adding a new memory and recipe to Share A Bite. We will safeguard this recipe and make it available for generations to come. Should you not want to share your recipe with others, make sure you mark the recipe as private.
+</p>
+<p>
+    ~ Happy Eating :)
+</p>
+
+<form asp-action="NewRecipe" asp-controller="Recipes">
+    <div asp-validation-summary="ModelOnly" class="input-validation-error"></div>
+    <div class="form-group">
+        <label asp-for="RecipeName">Recipe Title</label>
+        <input asp-for="RecipeName" class="form-control" placeholder="Recipe Title" />
+        <span asp-validation-for="RecipeName"></span>
+    </div>
+
+</form>
