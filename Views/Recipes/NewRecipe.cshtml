@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Share-A-Bite: Add a New Recipe";
 }
+<script src="https://cdn.ckeditor.com/ckeditor5/11.0.1/classic/ckeditor.js"></script>
 
 <h1>Create a new recipe</h1>
 <p>
@@ -11,12 +12,91 @@
     ~ Happy Eating :)
 </p>
 
-<form asp-action="NewRecipe" asp-controller="Recipes">
-    <div asp-validation-summary="ModelOnly" class="input-validation-error"></div>
-    <div class="form-group">
-        <label asp-for="RecipeName">Recipe Title</label>
-        <input asp-for="RecipeName" class="form-control" placeholder="Recipe Title" />
-        <span asp-validation-for="RecipeName"></span>
+
+<div class="row">
+    <div id="formData" class="col-sm-12 ">
+        <div asp-validation-summary="ModelOnly" class="input-validation-error"></div>
+        <div class="form-group">
+            <label asp-for="RecipeName">Recipe Title</label>
+            <input asp-for="RecipeName" class="form-control" placeholder="Recipe Title" />
+            <span asp-validation-for="RecipeName"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="RecipeStory">Recipe Story</label>
+            <textarea asp-for="RecipeStory" class="form-control editor" placeholder="Recipe Ingredients"></textarea>
+            <span asp-validation-for="RecipeStory"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="RecipeDescription">Recipe Description</label>
+            <textarea asp-for="RecipeDescription" class="form-control editor2" placeholder="Recipe Description"></textarea>
+            <span asp-validation-for="RecipeDescription"></span>
+        </div>
+        <div id="ingredientDisplay" class="form-group">
+            <label asp-for="RecipeIngredients">Recipe Ingredients</label>
+            <input asp-for="RecipeIngredients" class="form-control" placeholder="Recipe Title" />
+            <button id='addIngredient' class="btn btn-primary btn-sm pull-right">Add Ingredient</button>
+            <span asp-validation-for="RecipeIngredients"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="RecipeOvenTemp">Oven Temprature</label>
+            <input asp-for="RecipeOvenTemp" type="number" class="form-control" placeholder="350 &#8457;" />
+            <span asp-validation-for="RecipeOvenTemp"></span>
+        </div>
+        <button onclick="dataTest()">Click Me</button>
+    </div>
+    <div class="col-sm-6">
+
     </div>
 
-</form>
+</div>
+
+<script>
+    let recipeStory,
+        recipeDescription,
+        ingNum = 2,
+        dirNum = 2;
+
+
+    ClassicEditor
+        .create(document.querySelector('.editor'), {
+            toolbar: ['heading', '|', 'bold', 'italic', 'bulletedList', 'numberedList', 'blockQuote']
+        })
+        .then(newEditor => {
+            recipeStory = newEditor;
+        })
+
+        .catch(error => {
+            console.error(error);
+        });
+
+    ClassicEditor
+        .create(document.querySelector('.editor2'), {
+            toolbar: ['heading', '|', 'bold', 'italic', 'bulletedList', 'numberedList', 'blockQuote']
+        })
+        .then(newEditor => {
+            recipeDescription = newEditor;
+        })
+
+        .catch(error => {
+            console.error(error);
+        });
+
+
+    function dataTest() {
+        //get the data from CK Editor
+        const recipeStoryData = recipeStory.getData();
+        const recipeDescriptionData = recipeDescription.getData();
+
+        console.log(recipeStoryData)
+        console.log(recipeDescriptionData)
+    }
+
+    $('#addIngredient').on('click', function () {
+        $('#ingredientDisplay').append(
+            '<input type="text" class="form-control ingredients" placeholder="Additional Ingredient ' + ingNum + '" aria-describedby="sizing-addon2" name="ingredient_' +
+            ingNum + '" id="ingredient_' + ingNum + '"><br>')
+        ingNum++
+    })
+
+
+</script>

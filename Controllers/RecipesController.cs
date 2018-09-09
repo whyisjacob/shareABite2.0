@@ -37,8 +37,11 @@ namespace CLI.Controllers
         {
             Debug.WriteLine(post);
 
-            if (!ModelState.IsValid)
-                return View();
+            if(!ModelState.IsValid)
+            {
+                var ErrorMessage = "There was an error in creating your recipe";
+                return View(ErrorMessage);
+            }
 
 
             return View();

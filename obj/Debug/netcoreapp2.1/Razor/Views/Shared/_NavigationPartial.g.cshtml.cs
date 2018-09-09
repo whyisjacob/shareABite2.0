@@ -82,12 +82,12 @@ using Microsoft.AspNetCore.Identity;
             ");
             EndContext();
             BeginContext(615, 179, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "650b57188517492499018abd94b5606b", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ab6c02d0dff247d4a349a0fadec7f45b", async() => {
                 BeginContext(692, 18, true);
                 WriteLiteral("\r\n                ");
                 EndContext();
                 BeginContext(710, 66, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "bccc51aa33ca4270a361ed5a2c67451f", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "2bc06099beed4ede9cd56408d900723b", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -128,7 +128,7 @@ using Microsoft.AspNetCore.Identity;
             WriteLiteral("\r\n        </div>\r\n        <div class=\"navbar-collapse collapse\">\r\n            <ul class=\"nav navbar-nav\">\r\n                <li>\r\n                    ");
             EndContext();
             BeginContext(943, 183, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "977ba3b594f14ae2b07b16a684e24111", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5bd8d8b9e4e8467b8f6b80550b4e6a76", async() => {
                 BeginContext(999, 123, true);
                 WriteLiteral("\r\n                        <i class=\"fa fa-home\" aria-hidden=\"true\"></i>\r\n                        Home\r\n                    ");
                 EndContext();
@@ -154,7 +154,7 @@ using Microsoft.AspNetCore.Identity;
             WriteLiteral("\r\n                </li>\r\n                <li>\r\n                    ");
             EndContext();
             BeginContext(1193, 194, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "b654a5cca9a14160810dfb9138f42d48", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3171c9b8973d4aefa4ee710b52291014", async() => {
                 BeginContext(1249, 134, true);
                 WriteLiteral("\r\n                        <i class=\"fa fa-search\" aria-hidden=\"true\"></i>\r\n                        Find a Recipe\r\n                    ");
                 EndContext();
@@ -189,7 +189,7 @@ using Microsoft.AspNetCore.Identity;
             WriteLiteral("                    <li>\r\n                        ");
             EndContext();
             BeginContext(1535, 197, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "bf3e1ceae2734511970c89af65ec4fcb", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4b51399111f945d09bfd3d1cc2df7a17", async() => {
                 BeginContext(1591, 137, true);
                 WriteLiteral("\r\n                            <i class=\"fa fa-cog\" aria-hidden=\"true\"></i>\r\n                            Account\r\n                        ");
                 EndContext();
@@ -215,7 +215,7 @@ using Microsoft.AspNetCore.Identity;
             WriteLiteral("\r\n                    </li>\r\n                    <li>\r\n                        ");
             EndContext();
             BeginContext(1811, 203, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8ecb6eb90f4945e0a914cdf466a3d091", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "17dad76753b04be892bb0653c11944d5", async() => {
                 BeginContext(1869, 141, true);
                 WriteLiteral("\r\n                            <i class=\"fa fa-plus\" aria-hidden=\"true\"></i>\r\n                            New Recipe\r\n                        ");
                 EndContext();
@@ -253,7 +253,7 @@ using Microsoft.AspNetCore.Identity;
             WriteLiteral("            </ul>\r\n\r\n            ");
             EndContext();
             BeginContext(2157, 32, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("partial", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "6cb0b3245d1b4105972eab6f65469e34", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("partial", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "27054d79d7ff4a19b4cb339617f51d4d", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_TagHelpers_PartialTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.PartialTagHelper>();
