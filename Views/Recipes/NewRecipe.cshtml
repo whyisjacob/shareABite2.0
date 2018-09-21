@@ -15,7 +15,7 @@
 
 <div class="row">
     <div id="formData" class="col-sm-12 ">
-        <div asp-validation-summary="ModelOnly" class="input-validation-error"></div>
+        <h2>Section Header</h2>
         <div class="form-group">
             <label asp-for="RecipeName">Recipe Title</label>
             <input asp-for="RecipeName" class="form-control" placeholder="Recipe Title" />
@@ -31,23 +31,44 @@
             <textarea asp-for="RecipeDescription" class="form-control editor2" placeholder="Recipe Description"></textarea>
             <span asp-validation-for="RecipeDescription"></span>
         </div>
+    </div>
+    <div class="col-sm-12">
+        <h2>Section Header</h2>
         <div id="ingredientDisplay" class="form-group">
             <label asp-for="RecipeIngredients">Recipe Ingredients</label>
             <input asp-for="RecipeIngredients" class="form-control" placeholder="Recipe Title" />
             <button id='addIngredient' class="btn btn-primary btn-sm pull-right">Add Ingredient</button>
             <span asp-validation-for="RecipeIngredients"></span>
         </div>
+        <div id="directionsDisplay" class="form-group">
+            <label asp-for="RecipeDirections">Recipe Directions</label>
+            <input asp-for="RecipeDirections" class="form-control" placeholder="Recipe Directions" />
+            <button id='addDirections' class="btn btn-primary btn-sm pull-right">Add Directions</button>
+            <span asp-validation-for="RecipeDirections"></span>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <h2>Section Header</h2>
         <div class="form-group">
             <label asp-for="RecipeOvenTemp">Oven Temprature</label>
             <input asp-for="RecipeOvenTemp" type="number" class="form-control" placeholder="350 &#8457;" />
             <span asp-validation-for="RecipeOvenTemp"></span>
         </div>
-        <button onclick="dataTest()">Click Me</button>
-    </div>
-    <div class="col-sm-6">
+        <div class="form-group">
+            <label asp-for="RecipeServings">Number of Servings</label>
+            <input asp-for="RecipeServings" type="number" class="form-control" placeholder="4" />
+            <span asp-validation-for="RecipeServings"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="RecipePublic">Make Recipe Public</label>
+            <select class="form-control">
+                <option value="Y">Yes</option>
+                <option value="N">No</option>
+            </select>
+        </div>
+        <button class="btn btn-primary col-sm-12" onclick="dataTest()">Click Me</button>
 
     </div>
-
 </div>
 
 <script>
