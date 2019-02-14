@@ -1,0 +1,87 @@
+﻿@model IEnumerable<ShareABite2.Models.RecipeModel>
+
+@{
+	ViewData["Title"] = "Recipes";
+}
+
+<h2>My Recipes</h2>
+<p>
+	Your favorite recipes are an integral part of your family. Below is a list of your added family recipes
+</p>
+<table id="RecipeTable" class="table">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.RecipeName)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Story)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Description)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Servings)
+			</th>
+			<th>
+				Total Time
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+		<tr>
+			<td>
+				<h3>
+					@Html.DisplayFor(modelItem => item.RecipeName)
+				</h3>
+				<img src="@Html.DisplayFor(modelItem => item.ImgUrl)" alt="@Html.DisplayFor(modelItem => item.RecipeName) Recipe" title="@Html.DisplayFor(modelItem => item.RecipeName) Recipe" width="150" />
+				<ul>
+					<li>
+						<a asp-action="Edit" asp-route-id="@item.RecipeId" class="btn btn-primary">Edit</a>
+					</li>
+					<li>
+						<a asp-action="Details" asp-route-id="@item.RecipeId" class="btn btn-primary">Details</a>
+					</li>
+					<li>
+						<a asp-action="Delete" asp-route-id="@item.RecipeId" class="btn btn-primary">Delete</a>
+					</li>
+				</ul>
+			</td>
+			<td >
+				@Html.DisplayFor(modelItem => item.Story)
+			</td>
+			<td >
+				@Html.DisplayFor(modelItem => item.Description)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Servings) People
+			</td>
+			<td>
+				@{ 
+					int a = item.PrepTime;
+					int b = item.CookTime;
+				}
+				@(a + b) Minutes
+			</td>
+			<td>
+				@* Edit buttons *@
+				@* Social Media API's *@
+			</td>
+		</tr>
+		}
+	</tbody>
+</table>
+<script src="~/js/DataTables/datatables.min.js"></script>
+
+<script>
+	$(document).ready(function () {
+		$('#RecipeTable').DataTable({
+			"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+			responsive: false,
+
+		});
+	})
+</script>
