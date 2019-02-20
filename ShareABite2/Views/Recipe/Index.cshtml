@@ -3,6 +3,16 @@
 @{
 	ViewData["Title"] = "Recipes";
 }
+<div id="fb-root"></div>
+<script>
+	(function (d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s); js.id = id;
+		js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>
+
 
 <h2>My Recipes</h2>
 <p>
@@ -18,7 +28,7 @@
 			@Html.DisplayFor(modelItem => item.RecipeName)
 		</h3>
 		<div class="jumbotron">
-			<img src="@Html.DisplayFor(modelItem => item.ImgUrl)" alt="@Html.DisplayFor(modelItem => item.RecipeName) Recipe" title="@Html.DisplayFor(modelItem => item.RecipeName) Recipe" />
+			<img src="@Html.DisplayFor(modelItem => item.ImgUrl)" alt="@Html.DisplayFor(modelItem => item.RecipeName) Recipe" title="@Html.DisplayFor(modelItem => item.RecipeName) Recipe"  width="100%"/>
 		</div>
 		<div class="row recipe-Details">
 			<div class="col-sm-6 pull-left">
@@ -28,10 +38,19 @@
 				@Html.DisplayFor(modelItem => item.Servings) People
 			</div>
 		</div>
+		@if (!String.IsNullOrEmpty(item.Story))
+		{
 		<h4>Story</h4>
-		<p>
+		<p class="recipe-story" data-RecipeId="@item.RecipeId">
 			@Html.DisplayFor(modelItem => item.Story)
 		</p>
+		} else {
+		<h4>Description</h4>
+		<p class="recipe-story" data-RecipeId="@item.RecipeId">
+			@Html.DisplayFor(modelItem => item.Description)
+		</p>
+		}
+
 		<div class="row recipe-footer">
 			<div class="col-sm-4 recipe-footer-share">
 				<!--View/Edit-->
@@ -49,88 +68,37 @@
 				<!--Twitter-->
 			</div>
 			<div class="col-sm-4 recipe-footer-share">
-				<!--Facebook-->
+				<!-- Your share button code -->
+				<div class="fb-share-button"
+					 data-href="https://shareabiteweb.azurewebsites.net/Recipe/Details/@item.RecipeId"
+					 data-layout="button_count">
+				</div>
 			</div>
 		</div>
 	</div>
 	}
 </div>
 
-
-<table id="RecipeTable" class="table">
-	<thead>
-		<tr>
-			<th>
-				@Html.DisplayNameFor(model => model.RecipeName)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.Story)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.Description)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.Servings)
-			</th>
-			<th>
-				Total Time
-			</th>
-			<th></th>
-		</tr>
-	</thead>
-	<tbody>
-		@foreach (var item in Model)
-		{
-		<tr>
-			<td>
-				<h3>
-					@Html.DisplayFor(modelItem => item.RecipeName)
-				</h3>
-				<img src="@Html.DisplayFor(modelItem => item.ImgUrl)" alt="@Html.DisplayFor(modelItem => item.RecipeName) Recipe" title="@Html.DisplayFor(modelItem => item.RecipeName) Recipe" width="150" />
-				<ul>
-					<li>
-						<a asp-action="Edit" asp-route-id="@item.RecipeId" class="btn btn-primary">Edit</a>
-					</li>
-					<li>
-						<a asp-action="Details" asp-route-id="@item.RecipeId" class="btn btn-primary">Details</a>
-					</li>
-					<li>
-						<a asp-action="Delete" asp-route-id="@item.RecipeId" class="btn btn-primary">Delete</a>
-					</li>
-				</ul>
-			</td>
-			<td >
-				@Html.DisplayFor(modelItem => item.Story)
-			</td>
-			<td >
-				@Html.DisplayFor(modelItem => item.Description)
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => item.Servings) People
-			</td>
-			<td>
-				@{ 
-					int a = item.PrepTime;
-					int b = item.CookTime;
-				}
-				@(a + b) Minutes
-			</td>
-			<td>
-				@* Edit buttons *@
-				@* Social Media API's *@
-			</td>
-		</tr>
-		}
-	</tbody>
-</table>
 <script src="~/js/DataTables/datatables.min.js"></script>
 
 <script>
 	$(document).ready(function () {
-		$('#RecipeTable').DataTable({
-			"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-			responsive: false,
 
-		});
+		readMoreDisplay()
 	})
+
+	function readMoreDisplay() {
+		$('.recipe-story').each(function (ind,val) {
+			let storyLength = $(val).html().length;
+			let story = $(val).html();
+			let RecipeId = $(val).attr('data-recipeid');
+			console.log(RecipeId)
+			if (storyLength > 200) {
+				story = story.split(200);
+				$(val).html(story + " <a href='/Recipe/Details/" + RecipeId+"'>Read More...</a>")
+			} else {
+				$(val).html(story)
+			}
+		})
+	}
 </script>

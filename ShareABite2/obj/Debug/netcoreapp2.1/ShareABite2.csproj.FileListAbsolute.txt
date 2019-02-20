@@ -46,7 +46,6 @@ C:\Users\JakeHershberger\Desktop\CODE\shareABite2.0\ShareABite2\bin\Debug\netcor
 C:\Users\JakeHershberger\Desktop\CODE\shareABite2.0\ShareABite2\bin\Debug\netcoreapp2.1\ShareABite2.pdb
 C:\Users\JakeHershberger\Desktop\CODE\shareABite2.0\ShareABite2\bin\Debug\netcoreapp2.1\ShareABite2.Views.dll
 C:\Users\JakeHershberger\Desktop\CODE\shareABite2.0\ShareABite2\bin\Debug\netcoreapp2.1\ShareABite2.Views.pdb
-C:\Users\JakeHershberger\Desktop\CODE\shareABite2.0\ShareABite2\obj\Debug\netcoreapp2.1\ShareABite2.csprojAssemblyReference.cache
 C:\Users\JakeHershberger\Desktop\CODE\shareABite2.0\ShareABite2\obj\Debug\netcoreapp2.1\ShareABite2.csproj.CoreCompileInputs.cache
 C:\Users\JakeHershberger\Desktop\CODE\shareABite2.0\ShareABite2\obj\Debug\netcoreapp2.1\ShareABite2.RazorAssemblyInfo.cache
 C:\Users\JakeHershberger\Desktop\CODE\shareABite2.0\ShareABite2\obj\Debug\netcoreapp2.1\ShareABite2.RazorAssemblyInfo.cs
@@ -80,3 +79,4 @@ C:\Users\JakeHershberger\Desktop\CODE\shareABite2.0\ShareABite2\obj\Debug\netcor
 C:\Users\JakeHershberger\Desktop\CODE\shareABite2.0\ShareABite2\obj\Debug\netcoreapp2.1\ShareABite2.dll
 C:\Users\JakeHershberger\Desktop\CODE\shareABite2.0\ShareABite2\obj\Debug\netcoreapp2.1\ShareABite2.pdb
 C:\Users\JakeHershberger\Desktop\CODE\shareABite2.0\ShareABite2\obj\Debug\netcoreapp2.1\ShareABite2.csproj.CopyComplete
+C:\Users\JakeHershberger\Desktop\CODE\shareABite2.0\ShareABite2\obj\Debug\netcoreapp2.1\ShareABite2.csprojAssemblyReference.cache
