@@ -72,7 +72,7 @@ using ShareABite2.Models;
 			");
             EndContext();
             BeginContext(391, 102, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5a091f67a8dd4176a3ae4a8ff50b3f07", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5ae28104e1e14f7a872cfb91b2267d10", async() => {
                 BeginContext(468, 21, true);
                 WriteLiteral("\r\n\t\t\t\tShareABite\r\n\t\t\t");
                 EndContext();
@@ -99,7 +99,7 @@ using ShareABite2.Models;
             WriteLiteral("\r\n\t\t</div>\r\n\t\t<div class=\"navbar-collapse collapse\">\r\n\t\t\t<ul class=\"nav navbar-nav\">\r\n\t\t\t\t<li>\r\n\t\t\t\t\t");
             EndContext();
             BeginContext(594, 65, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "70fc7f9a663c4478b79e6d08d28324b3", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d1ae53a9ac8841e38c52d0f11f466483", async() => {
                 BeginContext(650, 5, true);
                 WriteLiteral("About");
                 EndContext();
@@ -134,7 +134,7 @@ using ShareABite2.Models;
             WriteLiteral("\t\t\t\t\t<li>\r\n\t\t\t\t\t\t");
             EndContext();
             BeginContext(737, 72, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e08f7e81ff4d4197b65c5c1b972d030e", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d7f370f77da240f19de64669246141c2", async() => {
                 BeginContext(795, 10, true);
                 WriteLiteral("My Recipes");
                 EndContext();
@@ -160,7 +160,7 @@ using ShareABite2.Models;
             WriteLiteral("\r\n\t\t\t\t\t</li>\r\n\t\t\t\t\t<li>\r\n\t\t\t\t\t\t");
             EndContext();
             BeginContext(840, 73, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4046b2f5138d4c8f8cac85d00dc23ecb", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c246f1602a304d0a8fb9ac3acd57dbd6", async() => {
                 BeginContext(899, 10, true);
                 WriteLiteral("New Recipe");
                 EndContext();
@@ -197,7 +197,7 @@ using ShareABite2.Models;
             WriteLiteral("\t\t\t\t\t<li>\r\n\t\t\t\t\t\t");
             EndContext();
             BeginContext(970, 69, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c8fa333743544521b022db52e599ff6f", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "cec25a57c4ef4382a53a40c133778e4e", async() => {
                 BeginContext(1028, 7, true);
                 WriteLiteral("Pricing");
                 EndContext();
@@ -232,7 +232,7 @@ using ShareABite2.Models;
             WriteLiteral("\r\n\t\t\t</ul>\r\n\t\t\t");
             EndContext();
             BeginContext(1077, 32, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("partial", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "d7474226e3434a64a1b1238b784ade04", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("partial", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "6801a015e0524d69b67913df634614b3", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_TagHelpers_PartialTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.PartialTagHelper>();

@@ -24,7 +24,8 @@ namespace ShareABite2.Models
 		public string IngredientsJson { get; set; }
 		public string DirectionsJson { get; set; }
 		public string UserId { get; set; }
-		//public string RecipeType { get; set; }
+		public int RecipeGenre { get; set; }//dinner, lunch, breakfast
+		public int Difficulty { get; set; }
 		//public string RecipeTags { get; set; }
 		
 	}

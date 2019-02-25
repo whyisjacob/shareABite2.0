@@ -80,3 +80,5 @@ C:\Users\JakeHershberger\Desktop\CODE\shareABite2.0\ShareABite2\obj\Debug\netcor
 C:\Users\JakeHershberger\Desktop\CODE\shareABite2.0\ShareABite2\obj\Debug\netcoreapp2.1\ShareABite2.pdb
 C:\Users\JakeHershberger\Desktop\CODE\shareABite2.0\ShareABite2\obj\Debug\netcoreapp2.1\ShareABite2.csproj.CopyComplete
 C:\Users\JakeHershberger\Desktop\CODE\shareABite2.0\ShareABite2\obj\Debug\netcoreapp2.1\ShareABite2.csprojAssemblyReference.cache
+C:\Users\JakeHershberger\Desktop\CODE\shareABite2.0\ShareABite2\obj\Debug\netcoreapp2.1\Razor\Views\View\Index.g.cshtml.cs
+C:\Users\JakeHershberger\Desktop\CODE\shareABite2.0\ShareABite2\obj\Debug\netcoreapp2.1\Razor\Views\View\Recipe.g.cshtml.cs

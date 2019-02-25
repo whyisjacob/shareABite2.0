@@ -28,7 +28,6 @@ namespace ShareABite2.Controllers
         public async Task<IActionResult> Index()
         {
 			string userInfo = User.Identity.GetUserId();
-			Debug.WriteLine(userInfo);
 			return View(await _context.RecipeModel.Where(p => p.UserId == userInfo).ToListAsync());
         }
 
