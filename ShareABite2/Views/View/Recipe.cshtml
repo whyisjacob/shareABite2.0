@@ -1,101 +1,234 @@
 ﻿@model ShareABite2.Models.RecipeModel
 
 @{
-    ViewData["Title"] = "Details";
+	ViewData["Title"] = "Details";
 }
+
+
+	<div class="container r-container">
+		<article class="col-md-10">
+			<section class='recipe'>
+				<h2 id="recipe_name" class="recipe_name">@Html.DisplayFor(model => model.RecipeName)</h2>
+				<h3>
+					Added By: <span id="addby">@Html.DisplayFor(model => model.UserId)</span>,
+					<time class="time timeago" datetime="@Html.DisplayFor(model => model.DateEdited)"></time>
+				</h3>
+			</section>
+
+			<section id="categories" class="categories hidden">
+				This would be perfect for &nbsp;
+				<a href="#">Breakfast</a> <a href="#">Lunch</a> <a href="#">Dinner</a>
+			</section>
+
+			<section class="img_des">
+				<div class="recipe_image">
+					<!-- <img class="recipe_image" src="assets/img/chicken-fajita.jpg" alt"bla bla"> -->
+				</div>
+			</section>
+
+			<section>
+				<h4 data-display="show">
+					The Story <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+				</h4>
+				<div id="story" class="description ">
+					@Html.DisplayFor(model => model.Story)
+					<br>
+					@Html.DisplayFor(model => model.Description)
+
+				</div>
+			</section>
+
+			<section>
+				<h4 data-display="hidden">
+					Ingredients <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+				</h4>
+				<div id="ingredients" class="ingredients ">
+					<ul id="ingredients_list"></ul>
+				</div>
+			</section>
+
+			<section>
+				<h4 data-display="hidden">
+					Put it all together <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+				</h4>
+				<div id="directions" class="directions hidden">
+					<div class="disp row">
+						<div class="display col-xs-4">
+							<img src="assets/img/oven.png" alt="Oven Temperature" class="directions_image"><br>
+																										   <span id="oven" class="directions_display">@Html.DisplayFor(model => model.OvenTemp)˚</span>
+						</div>
+
+						<div class="display col-xs-4">
+							<img src="assets/img/clock.png" alt="Total Prep and Cook Time" class="directions_image"><br>
+																													<span id="clock" class="directions_display">@Html.DisplayFor(model => model.CookTime)</span>
+						</div>
+
+						<div class="display col-xs-4">
+							<img src="assets/img/servings.png" alt="Servings" class="directions_image"><br>
+																									   <span id="Servings" class="directions_display">@Html.DisplayFor(model => model.Servings)</span>
+						</div>
+					</div>
+					<div id='steps' class="steps">
+						@Html.DisplayFor(model => model.DirectionsJson)
+					</div>
+				</div>
+			</section>
+
+		</article>
+
+		<!--Add display on medium and large screen-->
+		<aside class="col-md-2 hidden-xs hidden-sm hidden-print visible-md-block visible-lg-block">
+			<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+			<!-- Grab A Bite -->
+			<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7521264905632007" data-ad-slot="3529081166" data-ad-format="auto"></ins>
+			<script>
+				(adsbygoogle = window.adsbygoogle || []).push({});
+			</script>
+		</aside>
+	</div>
+
+	<footer id="footer" class="footer">
+		<hr> © 2017 Share a Bite, Inc. All Rights reserved.
+		<a href="#">Privacy Policy</a> |
+		<a href="#">Terms of Use</a> <br><br>
+	</footer>
+
+
+	<script src="~/js/Timeago/Timeago.js" asp-append-version="true"></script>
+
+	<script>
+		$(document).ready(function () {
+
+					$('.recipe_image').css({
+						'background-image': 'url(@Html.DisplayFor(model => model.ImgUrl))'
+					});
+
+
+					//display ingredients
+			var ingredients = "@Html.DisplayFor(model => model.IngredientsJson)";
+			ingredients = ingredients.split(",");
+					var ing = 1;
+					ingredients.forEach(function (ingr) {
+						// console.log(ingr);
+						$('#ingredients_list').append(
+							'<li class="ing_display"> <span class=" glyphicon glyphicon-remove-circle"></span> ' + ingr + '</li>');
+						ing++
+					})
+
+
+					if (v.oTemp == '0') {
+						$('#oven').html('Not Needed');
+					} else {
+						$('#oven').html(v.oTemp + '&#730;');
+					}
+					$('#clock').html(v.rTime + ' Min');
+					$('#servings').html(v.rServings)
+
+					//display all directions
+					var steps = v.rDirections
+					var st = 1;
+					steps.forEach(function (theSteps) {
+						// console.log(theSteps);
+						$('#steps').append('<h5>Step ' + st + '</h5><p>' + theSteps + '</p>');
+						st++
+					})
+
+					jQuery("time.timeago").timeago();
+
+		});
+
+	</script>
+
+	<script src="assets/js/app.js"></script>
+
 
 <h2>Details</h2>
 
 <div>
-    <h4>RecipeModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.RecipeName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.RecipeName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DateAdded)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DateAdded)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DateEdited)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DateEdited)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Story)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Story)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ImgUrl)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ImgUrl)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.OvenTemp)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.OvenTemp)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Servings)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Servings)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.PrepTime)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.PrepTime)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CookTime)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CookTime)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Public)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Public)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.IngredientsJson)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.IngredientsJson)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DirectionsJson)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DirectionsJson)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.UserId)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.UserId)
-        </dd>
-    </dl>
+	<h4>RecipeModel</h4>
+	<hr />
+	<dl class="dl-horizontal">
+		<dt>
+			</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.DateAdded)
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.DateAdded)
+		</dd>
+		<dt>
+
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.DateEdited)
+		</dd>
+		<dt>
+
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.Story)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.Description)
+		</dt>
+		<dd>
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.ImgUrl)
+		</dt>
+		<dd>
+
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.OvenTemp)
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.OvenTemp)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.Servings)
+		</dt>
+		<dd>
+			
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.PrepTime)
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.PrepTime)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.CookTime)
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.CookTime)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.Public)
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.Public)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.IngredientsJson)
+		</dt>
+		<dd>
+			
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.DirectionsJson)
+		</dt>
+		<dd>
+			
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.UserId)
+		</dt>
+		<dd>
+			@Html.DisplayFor(model => model.UserId)
+		</dd>
+	</dl>
 </div>
 <div>
-    <a asp-action="Index">Back to List</a>
+	<a asp-action="Index">Back to List</a>
 </div>

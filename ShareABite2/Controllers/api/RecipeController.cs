@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -84,8 +85,9 @@ namespace ShareABite2.Controllers.api
 
         // POST: api/Recipe
         [HttpPost]
-        public async Task<IActionResult> PostRecipeModel([FromForm] RecipeModel recipeModel)
+        public async Task<IActionResult> PostRecipeModel([FromBody]RecipeModel recipeModel)
         {
+			Debug.WriteLine(recipeModel);
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

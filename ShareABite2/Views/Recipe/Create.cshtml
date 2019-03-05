@@ -166,20 +166,16 @@
 		var settings = {
 			"async": true,
 			"crossDomain": true,
-			"url": "/api/Recipe/",
+			"url": "https://localhost:44342/api/Recipe",
 			"method": "POST",
 			"headers": {
-				"Content-Type": "application/x-www-form-urlencoded",
+				"Content-Type": "application/json",
 				"cache-control": "no-cache",
-				//"Postman-Token": "18bc0276-85fb-4b36-9e15-1e0fd445e932"
+				"Postman-Token": "e2a1693f-fa7c-4fd3-b348-72c0ad780744"
 			},
 			"processData": false,
-			"contentType": false,
-			"mimeType": "multipart/form-data",
-			"data": form
+			"data": "{\"recipeName\":\"" + form.RecipeName + "\",\"dateAdded\":\"" + form.DateAdded + "\",\"dateEdited\":\"" + form.DateEdited + "\",\"story\":\"" + form.Story + "\",\"description\":\"" + form.Description + "\",\"imgUrl\":\"" + form.ImgUrl + "\",\"ovenTemp\":\"" + form.OvenTemp + "\",\"servings\":\"" + form.Servings + "\",\"prepTime\":" + form.PrepTime + ",\"cookTime\":" + form.CookTime + ",\"public\":" + form.Public + ",\"ingredientsJson\":\"" + form.IngredientsJson + "\",\"directionsJson\":\"" + form.DirectionsJson + "\",\"userId\":\"" + form.UserId + "\",\"recipeGenre\":" + form.RecipeGenre + ",\"difficulty\":" + form.Difficulty +"}"
 		}
-		console.log(settings)
-
 
 		$.ajax(settings).done(function (response) {
 			console.log(response);
