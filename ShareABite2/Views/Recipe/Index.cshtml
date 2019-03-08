@@ -27,8 +27,7 @@
 		<h3>
 			@Html.DisplayFor(modelItem => item.RecipeName)
 		</h3>
-		<div class="jumbotron">
-			<img src="@Html.DisplayFor(modelItem => item.ImgUrl)" alt="@Html.DisplayFor(modelItem => item.RecipeName) Recipe" title="@Html.DisplayFor(modelItem => item.RecipeName) Recipe"  width="100%"/>
+		<div class="jumbotron" style="background-image: url(@Html.DisplayFor(modelItem => item.ImgUrl))">
 		</div>
 		<div class="row recipe-Details">
 			<div class="col-sm-6 pull-left">

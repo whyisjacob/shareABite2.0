@@ -1,7 +1,5 @@
-﻿body {
-	background-color:blue!important;
-}
-
-h1{
-	color: orange;
-}
+﻿@import 'base';
+@import 'home';
+@import 'account';
+@import 'recipe';
+ 

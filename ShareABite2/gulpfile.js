@@ -1,4 +1,4 @@
-﻿/// <binding BeforeBuild='clean' Clean='clean' />
+﻿/// <binding BeforeBuild='clean, sass' Clean='clean' ProjectOpened='watch' />
 "use strict";
 
 const gulp = require("gulp"),
@@ -48,7 +48,7 @@ gulp.task("min:css", () => {
 	return gulp.src([paths.css, "!" + paths.minCss])
 		.pipe(concat(paths.concatCssDest))
 		.pipe(cssmin())
-		.pipe(gulp.dest("."));
+		.pipe(gulp.dest("css"));
 });
 
 gulp.task("min", gulp.series(["min:js", "min:sass", "min:css"]));
@@ -56,3 +56,9 @@ gulp.task("min", gulp.series(["min:js", "min:sass", "min:css"]));
 
 // A 'default' task is required by Gulp v4
 gulp.task("default", gulp.series(["min"]));
+
+gulp.task('watch', function () {
+	//gulp.watch('wwwroot/scss/*.scss', ['sass']);
+	gulp.watch('wwwroot/scss/*.scss', gulp.series('sass'));
+	// Other watchers
+})
