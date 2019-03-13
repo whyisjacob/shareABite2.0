@@ -22,15 +22,16 @@ namespace ShareABite2.Controllers.api
             _context = context;
         }
 
-        // GET: api/Recipe
-        [HttpGet]
-        public IEnumerable<RecipeModel> GetRecipeModel()
-        {
-            return _context.RecipeModel;
-        }
+		// GET: api/Recipe
+		[HttpGet]
+		public IEnumerable<RecipeModel> GetRecipeModel()
+		{
+			return _context.RecipeModel;
+		}
 
-        // GET: api/Recipe/5
-        [HttpGet("{id}")]
+
+		// GET: api/Recipe/5
+		[HttpGet("{id}")]
         public async Task<IActionResult> GetRecipeModel([FromRoute] int id)
         {
             if (!ModelState.IsValid)

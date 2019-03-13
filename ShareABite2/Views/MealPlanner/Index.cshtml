@@ -1,0 +1,68 @@
+﻿
+@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Meal Planner</h2>
+
+<p>We have many different recipes for you to include in your weekly meals. Allow us to provide better results by choosing what type of recipes you would like</p>
+<div class="row">
+	<div class="col-sm-4">
+		<div class="row">
+			<h3>Meal Type</h3>
+			<button class="btn btn-default mealType">Breakfast</button>
+			<button class="btn btn-default mealType">Lunch</button>
+			<button class="btn btn-default mealType">Dinner</button>
+		</div>
+		<div class="row">
+			<h3>Difficulty</h3>
+			<button class="btn btn-default difficulty">Easy Please</button>
+			<button class="btn btn-default difficulty">Up to Medium Difficulty</button>
+			<button class="btn btn-default difficulty">It doesn't matter</button>
+		</div>
+		<div class="row">
+			<h3>Cook Time</h3>
+			<button class="btn btn-default cookTime">Twenty Minutes or less</button>
+			<button class="btn btn-default cookTime">Up to Fourty Minutes</button>
+			<button class="btn btn-default cookTime">It doesn't matter</button>
+		</div>
+		<div class="row">
+			<h3>Recipe Source</h3>
+			<button class="col-xs-6 btn btn-primary" onclick="myRecipes()">Use my recipes only</button>
+			<button class="col-xs-6 btn btn-primary" onclick="allRecipes()">Use all recipes</button>
+		</div>
+
+	</div>
+	<div class="col-sm-8">
+		<h2>My Results</h2>
+	</div>
+</div>
+
+<script>
+	let mealType,
+		difficulty,
+		cookTime;
+
+	$('.mealType').on('click', function () {
+		mealType = $(this).html();
+	})
+	$('.difficulty').on('click', function () {
+		difficulty = $(this).html();
+	})
+	$('.cookTime').on('click', function () {
+		cookTime = $(this).html();
+	})
+
+	function myRecipes() {
+		console.log(mealType)
+		console.log(difficulty)
+		console.log(cookTime)
+	}
+
+	function allRecipes() {
+
+	}
+
+	function getRecipes() {}
+</script>
