@@ -1,4 +1,8 @@
-﻿
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
 @{
 	ViewData["Title"] = "Index";
 	Layout = "~/Views/Shared/_Layout.cshtml";
@@ -28,21 +32,64 @@
 			<button class="btn btn-default cookTime">It doesn't matter</button>
 		</div>
 		<div class="row">
-			<h3>Recipe Source</h3>
-			<button class="col-xs-6 btn btn-primary" onclick="myRecipes()">Use my recipes only</button>
-			<button class="col-xs-6 btn btn-primary" onclick="allRecipes()">Use all recipes</button>
+			@if (SignInManager.IsSignedIn(User))
+			{
+				<h3>Recipe Source</h3>
+				<button class="col-xs-6 btn btn-primary" onclick="myRecipes()">Use my recipes only</button>
+				<button class="col-xs-6 btn btn-primary" onclick="allRecipes()">Use all recipes</button>
+			}
+			else
+			{
+				<h3>Recipe Source</h3>
+				<button class="col-xs-6 btn btn-primary" onclick="allRecipes()">Find Recipes</button>
+			}
 		</div>
 
 	</div>
 	<div class="col-sm-8">
 		<h2>My Results</h2>
+
+		<ul id="mealList" class="mealList">
+			<li id="sunday" class="mealDisplay">
+			</li>
+			<li id="monday" class="mealDisplay">
+
+			</li>
+			<li id="tuesday" class="mealDisplay">
+
+			</li>
+			<li id="wednesday" class="mealDisplay">
+
+			</li>
+			<li id="thursday" class="mealDisplay">
+
+			</li>
+			<li id="friday" class="mealDisplay">
+
+			</li>
+			<li id="saturday" class="mealDisplay">
+
+			</li>
+		</ul>
 	</div>
 </div>
 
 <script>
-	let mealType,
+	let chosenRecipes = [],
+		recipeChosenAlready,
+		//recipeCount = recipes.length,
+		daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+		x,
+		savedRecipes,
+		mealType,
 		difficulty,
 		cookTime;
+
+	$(document).ready(function () {
+		getSavedRecipeCount()
+		console.log(savedRecipes)
+	})
+
 
 	$('.mealType').on('click', function () {
 		mealType = $(this).html();
@@ -61,8 +108,72 @@
 	}
 
 	function allRecipes() {
-
+		console.log(mealType)
+		console.log(difficulty)
+		console.log(cookTime)
+		generateRecipeDisplay()
 	}
 
-	function getRecipes() {}
+	function generateRecipeDisplay() {
+		chosenRecipes = [];
+		$('.mealDisplay').each(function (i, val) {
+			//Clear list
+			$(val).html(' ');
+			randomNumber()
+			if (x == "ChooseNewRecipe") {
+				randomNumber()
+				if (x !== "ChooseNewRecipe") {
+					$.get("/api/Recipe/" + x, function (data) {
+						buildDisplay(data, val, i)
+						
+					})
+				} else {
+					randomNumber()
+					if (x !== "ChooseNewRecipe") {
+						$(val).$.get("/api/Recipe/" + x, function (data) {
+							buildDisplay(data, val, i)
+						})
+					} else {
+					}
+				}
+			} else {
+				$.get("/api/Recipe/" + x, function (data) {
+					buildDisplay(data, val, i)
+				})
+			}
+		})
+	}
+	function buildDisplay(data, val, i) {
+		console.log(data)
+		$(val).append("<b>" + daysOfWeek[i] + "</b><h3>" + data.recipeName + "</h3> <img width='50%' src='" +data.imgUrl+ "' alt='"+data.recipeName +"'><br><p>"  + data.description + "</p> <a href='/view/recipe/" + data.recipeId +"' target='_blank'>View</a>")
+
+	}
+	function randomNumber() {
+		var randomNumber = Math.floor(Math.random() * savedRecipes)
+		var numbExists = chosenRecipes.includes(randomNumber)
+		if (numbExists) {
+			x = "ChooseNewRecipe"
+			return x
+		} else {
+			chosenRecipes.push(randomNumber)
+			x = randomNumber
+			return x
+		}
+	}
+	function getSavedRecipeCount() {
+		$.get("/api/Recipe", function (data) {
+			savedRecipes = data.length;
+			console.log(savedRecipes)
+		})
+	}
+	$('#scanRecipes').on('click', function () {
+		$('#scanRecipes').html('Refresh List')
+		generateRecipeDisplay()
+	})
+	function getRecipeInfo(id) {
+		$.get("/api/Recipe/" + id, function (data) {
+			savedRecipes = data.length;
+			console.log(savedRecipes)
+		})
+	}
 </script>

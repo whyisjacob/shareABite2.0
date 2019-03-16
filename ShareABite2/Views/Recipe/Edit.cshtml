@@ -1,7 +1,8 @@
 ﻿@model ShareABite2.Models.RecipeModel
+@using Microsoft.AspNet.Identity;
 
 @{
-    ViewData["Title"] = "Edit";
+	ViewData["Title"] = "Edit";
 }
 
 <h2>Edit</h2>
@@ -9,7 +10,7 @@
 <h4>RecipeModel</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+	<div class="col-md-4">
 		<form asp-action="Edit">
 			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 			<input type="hidden" asp-for="RecipeId" />
@@ -20,28 +21,36 @@
 			</div>
 			<div class="form-group">
 				<label asp-for="DateAdded" class="control-label"></label>
-				<input asp-for="DateAdded" class="form-control" />
+				<input disabled asp-for="DateAdded" class="form-control" />
 				<span asp-validation-for="DateAdded" class="text-danger"></span>
 			</div>
 			<div class="form-group">
 				<label asp-for="DateEdited" class="control-label"></label>
-				<input asp-for="DateEdited" class="form-control" />
+				<input type="text" disabled asp-for="DateEdited" class="form-control" value="@DateTime.Now" />
 				<span asp-validation-for="DateEdited" class="text-danger"></span>
 			</div>
 			<div class="form-group">
 				<label asp-for="Story" class="control-label"></label>
-				<input asp-for="Story" class="form-control" />
+				<textarea asp-for="Story" rows="5" class="form-control"></textarea>
 				<span asp-validation-for="Story" class="text-danger"></span>
 			</div>
 			<div class="form-group">
 				<label asp-for="Description" class="control-label"></label>
-				<input asp-for="Description" class="form-control" />
+				<textarea asp-for="Description" rows="5" class="form-control"></textarea>
 				<span asp-validation-for="Description" class="text-danger"></span>
 			</div>
 			<div class="form-group">
 				<label asp-for="ImgUrl" class="control-label"></label>
 				<input asp-for="ImgUrl" class="form-control" />
 				<span asp-validation-for="ImgUrl" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<input type="file" name="pic" accept="image/*" class="form-control" placeholder="Image from Web" aria-describedby="sizing-addon2"
+					   name='image' id="image" value="upload" d onchange="handleFiles(this.files)">
+				<span id="imgPreview"></span>
+				<br>
+				<progress id="uploader" value="0" max="100">0%</progress>
+				<span id="uploadstatus"></span>
 			</div>
 			<div class="form-group">
 				<label asp-for="OvenTemp" class="control-label"></label>
@@ -72,17 +81,17 @@
 			</div>
 			<div class="form-group">
 				<label asp-for="IngredientsJson" class="control-label"></label>
-				<input asp-for="IngredientsJson" class="form-control" />
+				<textarea asp-for="IngredientsJson" class="form-control" rows="5"></textarea>
 				<span asp-validation-for="IngredientsJson" class="text-danger"></span>
 			</div>
 			<div class="form-group">
 				<label asp-for="DirectionsJson" class="control-label"></label>
-				<input asp-for="DirectionsJson" class="form-control" />
+				<textarea asp-for="DirectionsJson" class="form-control" rows="5"></textarea>
 				<span asp-validation-for="DirectionsJson" class="text-danger"></span>
 			</div>
 			<div class="form-group">
 				<label asp-for="UserId" class="control-label"></label>
-				<input asp-for="UserId" class="form-control" />
+				<input type="hidden" asp-for="UserId" class="form-control" />
 				<span asp-validation-for="UserId" class="text-danger"></span>
 			</div>
 			<div class="form-group">
@@ -109,13 +118,96 @@
 				<input type="submit" value="Save" class="btn btn-default" />
 			</div>
 		</form>
-    </div>
+	</div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+	<a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+
+<script src="https://www.gstatic.com/firebasejs/4.6.1/firebase.js"></script>
+<script>
+
+	var ingNum = 2,
+		dirNum = 2;
+
+	var config = {
+		apiKey: "AIzaSyCgoRfIkQr6LbDgERECflwrP4Dmi2-TPKA",
+		authDomain: "grab-a-bite-df6c2.firebaseapp.com",
+		databaseURL: "https://grab-a-bite-df6c2.firebaseio.com",
+		projectId: "grab-a-bite-df6c2",
+		storageBucket: "grab-a-bite-df6c2.appspot.com",
+		messagingSenderId: "915542502205"
+	};
+	firebase.initializeApp(config);
+
+
+	var database = firebase.database();
+	var defaultAuth = firebase.auth();
+	var img;
+	var thefile
+	var rImage;
+	var uid = '@User.Identity.GetUserId()';
+
+	function handleFiles(files) {
+		$('#imgPreview').html('');
+		for (var i = 0; i < files.length; i++) {
+			file = files[i];
+
+			if (!file.type.startsWith('image/')) {
+				continue
+			}
+
+			img = document.createElement("img");
+			img.classList.add("obj");
+			img.file = file;
+			document.getElementById('imgPreview').appendChild(img);
+
+			var reader = new FileReader();
+			reader.onload = (function (aImg) {
+				return function (e) {
+					aImg.src = e.target.result;
+				};
+			})(img);
+			reader.readAsDataURL(file);
+		}
+	}
+
+	var v
+	// Create a root reference
+	var uploader = document.getElementById('uploader');
+	var fileButton = document.getElementById('image');
+	fileButton.addEventListener('change', function (e) {
+		$('#uploadstatus').html(
+			'<br>The image is uploading...<br><strong>Do not refresh the page or navigate away.<br><br></strong>')
+
+		var file = e.target.files[0];
+		var storageRef = firebase.storage().ref(uid + '/recipe_img/' + file.name);
+		var task = storageRef.put(file);
+		task.on('state_changed', function progress(snapshot) {
+			var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+			uploader.value = percentage;
+			console.log('snapshot')
+			console.log(snapshot)
+			console.log('image url');
+			v = snapshot
+
+		}, function error(err) {
+			console.log(err)
+
+		}, function complete(data) {
+			console.log(data);
+			$('#uploadstatus').html('<br>Upload Complete!<br><br>')
+			console.log('snapshot in done');
+			console.log(v);
+			rImage = v.task.N.downloadURLs[0];
+			$('#ImgUrl').val(rImage)
+			console.log(rImage)
+		});
+	});
+</script>
