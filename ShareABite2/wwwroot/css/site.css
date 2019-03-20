@@ -7,11 +7,32 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: 'PT Sans', Helvetica, Arial, sans-serif; }
 
-.navbar {
+.btn {
+  border-radius: 0px !important; }
+
+.btn-primary {
+  background-color: #f7921e;
+  color: #fff !important; }
+
+.main-container {
+  height: auto; }
+
+.navigation {
+  padding: 0px;
+  margin: -40px 0px 0px 0px;
+  height: 100%;
   background-color: #da7808;
   color: #fff;
   border-bottom: #a95d06;
   font-weight: 800;
+  width: 80px;
+  float: left; }
+  .navigation a {
+    color: #fff !important; }
+    .navigation a:hover {
+      text-decoration: underline !important; }
+
+.navbar {
   -webkit-box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.75); }
@@ -24,13 +45,6 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 800; }
     .navbar .navbar-btn:hover {
       text-decoration: underline; }
-
-.btn {
-  border-radius: 0px !important; }
-
-.btn-primary {
-  background-color: #f7921e;
-  color: #fff !important; }
 
 .recipe {
   cursor: pointer; }

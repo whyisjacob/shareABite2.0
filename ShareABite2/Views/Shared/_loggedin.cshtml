@@ -2,4 +2,22 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
-<h1>Welcome @UserManager.GetUserName(User)!</h1>
+<div class="row">
+	<div class="col-sm-8">
+		<h1>Welcome @UserManager.GetUserName(User)!</h1>
+		<h4>Memories (Recipes) Preserved 12</h4>
+		<a href="#" class="btn btn-primary">Save a New Recipe</a>
+	</div>
+	<div class="col-sm-4">
+
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-12">
+		<h2>Recently Added Recipes</h2>
+		<div class="row">
+			<div></div>
+		</div>
+	</div>
+</div>
+

@@ -33,18 +33,29 @@
 	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body>
-	<partial name="_Navigation" />
-
-
 	<partial name="_CookieConsentPartial" />
 
-	<div class="container body-content">
-		@RenderBody()
-		<hr />
-		<footer>
-			<p>&copy; 2019 - ShareABite A Hashbrown Company</p>
-		</footer>
+	<div class="main-container">
+		<div class="col-xs-1 navigation">
+			asdf
+		</div>
+		<div class="col-xs-11">
+			<partial name="_Navigation" />
+
+			<div class="container body-content">
+				@RenderBody()
+				<hr />
+				<footer>
+					<p>&copy; 2019 - ShareABite A Hashbrown Company</p>
+				</footer>
+			</div>
+
+		</div>
 	</div>
+
+
+
+	
 
 	<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
 			asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
