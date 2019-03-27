@@ -3,25 +3,45 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="author" content="ShareABite | Sharing Recipes for Generations">
+	<meta name="description" content="@ViewData["Description"]">
+	<meta property="og:site_name" content="ShareABite | Sharing Recipes for Generations">
+	<meta property="og:title" content="@ViewData["Title"] - ShareABite | Sharing Recipes for Generations">
+	<meta property="og:description" content="@ViewData["Description"]">
+	<meta property="og:url" content="//www.share-a-bite.com/">
+	<meta property="og:image" content="@ViewData["imageURL"]">
+	<meta property="og:image:secure_url" content="@ViewData["imageURL"]">
+	<meta property="og:image:type" content="image/png">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:url" content="//www.share-a-bite.com/">
+	<meta name="twitter:title" content="@ViewData["Title"] - ShareABite | Sharing Recipes for Generations">
+	<meta name="twitter:description" content="@ViewData["Description"]">
+	<meta name="twitter:image" content="@ViewData["imageURL"]">
+	<meta itemprop="name" content="ShareABite | Sharing Recipes for Generations">
+	<meta itemprop="description" content="@ViewData["Description"]">
+	<meta itemprop="image" content="@ViewData["imageURL"]">
+	<meta name="keywords" content="Family Recipes, Share A Bite, Share-A-Bite, Preserving Family Recipes, Family Search Recipes, Saving Family Recipes, Grandmas Recipes, Favorite Recipes, Meal Planner, Meal Planner App, Recipe App ">
+
 	<title>@ViewData["Title"] - ShareABite | Sharing Recipes for Generations</title>
 
 	@* Favicons *@
-	<link rel="apple-touch-icon" sizes="60x60" href="assets/img/favicon/apple-icon-60x60.png">
-	<link rel="apple-touch-icon" sizes="72x72" href="assets/img/favicon/apple-icon-72x72.png">
-	<link rel="apple-touch-icon" sizes="76x76" href="assets/img/favicon/apple-icon-76x76.png">
-	<link rel="apple-touch-icon" sizes="114x114" href="assets/img/favicon/apple-icon-114x114.png">
-	<link rel="apple-touch-icon" sizes="120x120" href="assets/img/favicon/apple-icon-120x120.png">
-	<link rel="apple-touch-icon" sizes="144x144" href="assets/img/favicon/apple-icon-144x144.png">
-	<link rel="apple-touch-icon" sizes="152x152" href="assets/img/favicon/apple-icon-152x152.png">
-	<link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicon/apple-icon-180x180.png">
-	<link rel="icon" type="image/png" sizes="192x192" href="assets/img/favicon/android-icon-192x192.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicon/favicon-96x96.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon/favicon-16x16.png">
-	<link rel="manifest" href="/manifest.json">
-	<meta name="msapplication-TileColor" content="#ffffff">
-	<meta name="msapplication-TileImage" content="assets/img/favicon/ms-icon-144x144.png">
-	<meta name="theme-color" content="#ffffff">
+	<link rel="apple-touch-icon" sizes="60x60" href="~/images/favicon/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="~/images/favicon/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="~/images/favicon/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="~/images/favicon/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="~/images/favicon/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="~/images/favicon/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="~/images/favicon/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="~/images/favicon/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192" href="~/images/favicon/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="~/images/favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="~/images/favicon/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="~/images/favicon/favicon-16x16.png">
+	<link rel="manifest" href="~/images/favicon/manifest.json">
+	<meta name="msapplication-TileColor" content="#f7921e">
+	<meta name="msapplication-TileImage" content="~/images/favicon/ms-icon-144x144.png">
+	<meta name="theme-color" content="#f7921e">
 
 	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
 	<link rel="stylesheet" href="~/css/datatables.css" />
@@ -29,34 +49,6 @@
 
 	<script src="~/lib/jquery/dist/jquery.js"></script>
 	<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-
-	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-</head>
-<body>
-	<partial name="_CookieConsentPartial" />
-
-	<div class="main-container">
-		<div class="col-xs-1 navigation">
-			asdf
-		</div>
-		<div class="col-xs-11">
-			<partial name="_Navigation" />
-
-			<div class="container body-content">
-				@RenderBody()
-				<hr />
-				<footer>
-					<p>&copy; 2019 - ShareABite A Hashbrown Company</p>
-				</footer>
-			</div>
-
-		</div>
-	</div>
-
-
-
-	
-
 	<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
 			asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
 			asp-fallback-test="window.jQuery"
@@ -69,6 +61,27 @@
 			crossorigin="anonymous"
 			integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
 	</script>
+
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+	<partial name="_Navigation" />
+
+	<partial name="_CookieConsentPartial" />
+
+	<div class="container">
+		@RenderBody()
+		<hr />
+
+	</div>
+
+	<footer>
+		<p>&copy; 2019 - ShareABite A Hashbrown Company</p>
+	</footer>
+
+
+
+
 	<script src="~/js/site.min.js" asp-append-version="true"></script>
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.min.js"></script>
 

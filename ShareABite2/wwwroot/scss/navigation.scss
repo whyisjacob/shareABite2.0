@@ -1,4 +1,4 @@
-﻿.navigation {
+﻿.navbar {
 	padding: 0px;
 	margin: -40px 0px 0px 0px;
 	height: 100%;
@@ -6,23 +6,10 @@
 	color: #fff;
 	border-bottom: darken($brand, 20%);
 	font-weight: 800;
-	width: 80px;
-	float: left;
-
-	a {
-		color: #fff !important;
-
-		&:hover {
-			text-decoration: underline !important;
-		}
-	}
-}
-.navbar {
 	-webkit-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.75);
 	-moz-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.75);
 	box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.75);
 
-
 	a {
 		color: #fff !important;
 
@@ -30,6 +17,8 @@
 			text-decoration: underline !important;
 		}
 	}
+
+
 
 	.navbar-btn {
 		color: white;

@@ -1,7 +1,12 @@
 ﻿@model ShareABite2.Models.RecipeModel
 
 @{
-	ViewData["Title"] = "Details";
+	var title = @Html.DisplayFor(model => model.RecipeName);
+	ViewData["Title"] = title;
+	var description = @Html.DisplayFor(model => model.Story);
+	ViewData["Description"] = description;
+	var imageURL = Html.DisplayFor(model => model.ImgUrl);
+	ViewData["imageURL"] = imageURL;
 }
 
 
@@ -93,11 +98,6 @@
 	</aside>
 </div>
 
-<footer id="footer" class="footer">
-	<hr> © 2017 Share a Bite, Inc. All Rights reserved.
-	<a href="#">Privacy Policy</a> |
-	<a href="#">Terms of Use</a> <br><br>
-</footer>
 
 
 <script src="~/js/Timeago/Timeago.js" asp-append-version="true"></script>
@@ -153,96 +153,3 @@
 
 </script>
 
-<script src="assets/js/app.js"></script>
-
-
-<h2>Details</h2>
-
-<div>
-	<h4>RecipeModel</h4>
-	<hr />
-	<dl class="dl-horizontal">
-		<dt>
-			</dd>
-		<dt>
-			@Html.DisplayNameFor(model => model.DateAdded)
-		</dt>
-		<dd>
-			@Html.DisplayFor(model => model.DateAdded)
-		</dd>
-		<dt>
-
-		</dt>
-		<dd>
-			@Html.DisplayFor(model => model.DateEdited)
-		</dd>
-		<dt>
-
-		</dt>
-		<dd>
-			@Html.DisplayFor(model => model.Story)
-		</dd>
-		<dt>
-			@Html.DisplayNameFor(model => model.Description)
-		</dt>
-		<dd>
-		</dd>
-		<dt>
-			@Html.DisplayNameFor(model => model.ImgUrl)
-		</dt>
-		<dd>
-
-		</dd>
-		<dt>
-			@Html.DisplayNameFor(model => model.OvenTemp)
-		</dt>
-		<dd>
-			@Html.DisplayFor(model => model.OvenTemp)
-		</dd>
-		<dt>
-			@Html.DisplayNameFor(model => model.Servings)
-		</dt>
-		<dd>
-
-		</dd>
-		<dt>
-			@Html.DisplayNameFor(model => model.PrepTime)
-		</dt>
-		<dd>
-			@Html.DisplayFor(model => model.PrepTime)
-		</dd>
-		<dt>
-			@Html.DisplayNameFor(model => model.CookTime)
-		</dt>
-		<dd>
-			@Html.DisplayFor(model => model.CookTime)
-		</dd>
-		<dt>
-			@Html.DisplayNameFor(model => model.Public)
-		</dt>
-		<dd>
-			@Html.DisplayFor(model => model.Public)
-		</dd>
-		<dt>
-			@Html.DisplayNameFor(model => model.IngredientsJson)
-		</dt>
-		<dd>
-
-		</dd>
-		<dt>
-			@Html.DisplayNameFor(model => model.DirectionsJson)
-		</dt>
-		<dd>
-
-		</dd>
-		<dt>
-			@Html.DisplayNameFor(model => model.UserId)
-		</dt>
-		<dd>
-			@Html.DisplayFor(model => model.UserId)
-		</dd>
-	</dl>
-</div>
-<div>
-	<a asp-action="Index">Back to List</a>
-</div>

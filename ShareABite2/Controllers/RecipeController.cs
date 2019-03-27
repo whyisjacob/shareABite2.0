@@ -70,6 +70,28 @@ namespace ShareABite2.Controllers
 
 			//return View(recipeModel);
 		}
+		
+		//GET: Recipe/MostRecentRecipes
+		public async Task<IActionResult> MostRecentRecipes()
+		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest(ModelState);
+			}
+
+			var recipeModel = (from p in _context.RecipeModel
+							   orderby p.RecipeName descending
+									select p).Take(6);
+
+
+			if (recipeModel == null)
+			{
+				return NotFound();
+			}
+
+			return Ok(recipeModel);
+		}
+
 
 		// GET: Recipe/Create
 		public IActionResult Create()
