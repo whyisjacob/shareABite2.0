@@ -7,7 +7,20 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: 'PT Sans', Helvetica, Arial, sans-serif; }
 
+.btn {
+  border-radius: 0px !important; }
+
+.btn-primary {
+  background-color: #f7921e;
+  color: #fff !important; }
+
+.main-container {
+  height: auto; }
+
 .navbar {
+  padding: 0px;
+  margin: -40px 0px 0px 0px;
+  height: 100%;
   background-color: #da7808;
   color: #fff;
   border-bottom: #a95d06;
@@ -24,13 +37,6 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 800; }
     .navbar .navbar-btn:hover {
       text-decoration: underline; }
-
-.btn {
-  border-radius: 0px !important; }
-
-.btn-primary {
-  background-color: #f7921e;
-  color: #fff !important; }
 
 .recipe {
   cursor: pointer; }
