@@ -5,9 +5,10 @@ $brand: #f7921e;
 $primary-color: $brand;
 
 body {
-	margin-top:40px;
+	margin-top: 40px;
 	background: #fff !important;
 	font-family: 'Raleway', Helvetica, Arial, sans-serif;
+	font-size:14px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -16,14 +17,37 @@ h1, h2, h3, h4, h5, h6 {
 
 
 
-.btn{
-	border-radius:0px!important;
-}
-.btn-primary {
-	background-color: $brand;
-	color:#fff!important;
+.btn {
+	border-radius: 0px !important;
 }
 
-.main-container{
-	height:auto;
+.btn-primary {
+	background-color: $brand;
+	border-color: darken($brand,10%);
+	color: #fff !important;
+	font-weight:800;
+	font-size:.75em;
+	letter-spacing:.75px;
+	padding:.75em;
+
+	&:hover {
+		background-color: darken($brand, 5%);
+		border-color: darken($brand,20%);
+	}
+}
+
+.main-container {
+	height: auto;
+}
+
+a {
+	color: $brand;
+
+	.glyphicon {
+		font-size:1.25em;
+	}
+
+	&:hover {
+		color: darken($brand, 20%);
+	}
 }

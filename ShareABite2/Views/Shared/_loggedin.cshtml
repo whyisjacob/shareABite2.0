@@ -1,6 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
+
 <div id="fb-root"></div>
 <script>
 	(function (d, s, id) {
@@ -12,90 +13,195 @@
 	}(document, 'script', 'facebook-jssdk'));</script>
 
 <div class="row">
-	<div class="col-sm-8">
-		<h1>Welcome @UserManager.GetUserName(User)!</h1>
-		<h4>Memories (Recipes) Preserved 12</h4>
-		<a href="#" class="btn btn-primary">Save a New Recipe</a>
-	</div>
-	<div class="col-sm-4">
+	<h1>Welcome @UserManager.GetUserName(User)! </h1>
 
+	<div class="col-sm-12">
+		<p>We are glad you have decided to join in the effort of preserving your recipes and sharing them with others. We hope you enjoy saving your favorite recipes. Should you encounter any challenges please <a href="#">Reach out to us</a> and we will take care of you.</p>
+
+			<h4><span id="userRecipeCount"></span></h4>
+
+		</div>
+	<div class="col-sm-12 ">
+
+	</div>
+</div>
+
+<partial name="_HeroSlider" />
+
+<div class="row">
+	<div class="col-sm-12">
+		<h2>My Recent Recipes</h2>
+		<div id="myRecentRecipes" class="row">
+		</div>
 	</div>
 </div>
 <div class="row">
 	<div class="col-sm-12">
-		<h2>Recently Added Recipes</h2>
-		<div id="recentRecipes" class="row">
+		<h2>Recent Community Recipes</h2>
+		<div id="recentCommunityRecipes" class="row">
 		</div>
 	</div>
 </div>
 
 <script>
-	var settings = {
-		"async": true,
-		"crossDomain": true,
-		"url": "/Recipe/MostRecentRecipes",
-		"method": "GET",
-		"headers": {
-			"cache-control": "no-cache",
-			"Postman-Token": "a1cf4227-de5c-4350-9403-f1b937fee072"
-		}
-	}
 
-	$.ajax(settings).done(function (response) {
-		console.log(response);
-		$(response).each(function (ind, val) {
-			$('#recentRecipes').append('<div class="col-sm-4 recipe"><h3>' + val.recipeName + '</h3>' +
-				'<div class="jumbotron" style="background-image: url(' + val.imgUrl + ')"></div>' +
-				'<div class="row recipe-Details">' +
-					'<div class="col-sm-6 pull-left">' + val.cookTime + " Minutes" + "</div>" +
-					'<div class="col-sm-6 pull-right">' + val.servings + " People" + "</div>" +
-				'</div>' +
-				//display recipe desc
-				'<h4>Description</h4>' +
-				'<p class="recipe-story" data-RecipeId="' + val.recipeId + '">' +
-				val.description +
-				'</p>' +
-				//display view, edit, and share btns
-				'<div class="row recipe-footer">' +
-					'<div class="col-sm-4 recipe-footer-share">' +
-						//edit
-						'<a href="/Recipe/Edit/' + val.recipeId + '" target="_blank">' +
-						'<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>' +
-						'</a>' +
-						//view recipe
-						'<a href="/View/Recipe/' + val.recipeId + ' " class="">' +
-						'<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>' +
-						'</a>' +
-						'<div class="col-sm-4 recipe-footer-share">' +
-						//twitter share code
-						'</div>' +
-						'<div class="col-sm-4 recipe-footer-share">' +
-							'<div class="fb-share-button" data-href="https://shareabiteweb.azurewebsites.net/view/recipe/' + val.recipeId + '"data-layout="button_count">' +
-							'</div>' +
-						'</div>' +
-					'</div>' +
-				'</div>' +
-				'</div>' +
 
-				'</div>')
-
-		})
-	})
+	var userIdNum = '@UserManager.GetUserId(User)'
 
 	$(document).ready(function () {
 
-		readMoreDisplay()
+		loadCommunityRecipes()
+		loadUserRecipes(userIdNum)
+		countUserRecipes(userIdNum);
+
 	})
+
+	function loadCommunityRecipes() {
+		var settings = {
+			"async": true,
+			"crossDomain": true,
+			"url": "/Recipe/MostRecentRecipes",
+			"method": "GET",
+			"headers": {
+				"cache-control": "no-cache",
+			}
+		}
+
+		$.ajax(settings).done(function (response) {
+			console.log(response);
+			$(response).each(function (ind, val) {
+				$('#recentCommunityRecipes').append('<div class="col-sm-4 recipe"><h3>' + val.recipeName + '</h3>' +
+					'<div class="jumbotron" style="background-image: url(' + val.imgUrl + ')"></div>' +
+					'<div class="row recipe-Details">' +
+					'<div class="col-sm-6 pull-left">' + val.cookTime + " Minutes" + "</div>" +
+					'<div class="col-sm-6 pull-right">' + val.servings + " People" + "</div>" +
+					'</div>' +
+					//display recipe desc
+					'<h4>Description</h4>' +
+					'<p class="recipe-story" data-RecipeId="' + val.recipeId + '">' +
+					val.description +
+					'</p>' +
+					//display view, edit, and share btns
+					'<div class="row recipe-footer">' +
+					'<div class="col-sm-4 row recipe-footer-share">' +
+					//edit
+					'<a class="col-sm-6" href="/Recipe/Edit/' + val.recipeId + '" target="_blank">' +
+					'<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>' +
+					'</a>' +
+					//view recipe
+					'<a class="col-sm-6" href="/View/Recipe/' + val.recipeId + ' " class="">' +
+					'<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>' +
+					'</a>' +
+					'</div>' +
+					'<div class="col-sm-4 recipe-footer-share">' +
+					//twitter share code
+					'</div>' +
+					'<div class="col-sm-4 recipe-footer-share">' +
+					'<div class="fb-share-button" data-href="https://shareabiteweb.azurewebsites.net/view/recipe/' + val.recipeId + '"data-layout="button_count">' +
+					'</div>' +
+					'</div>' +
+					'</div>' +
+					'</div>' +
+					'</div>' +
+
+					'</div>')
+
+			})
+
+		})
+	}
+
+
+	function loadUserRecipes(userIdNumber) {
+		var settings = {
+			"async": true,
+			"crossDomain": true,
+			"url": "/Recipe/MyMostRecentRecipes?userInfo=" + userIdNumber,
+			"method": "GET",
+			"headers": {
+				"cache-control": "no-cache",
+			}
+		}
+
+		$.ajax(settings).done(function (response) {
+			console.log(response);
+			$(response).each(function (ind, val) {
+				$('#myRecentRecipes').append('<div class="col-sm-4 recipe"><h3>' + val.recipeName + '</h3>' +
+					'<div class="jumbotron" style="background-image: url(' + val.imgUrl + ')"></div>' +
+					'<div class="row recipe-Details">' +
+					'<div class="col-sm-6 pull-left">' + val.cookTime + " Minutes" + "</div>" +
+					'<div class="col-sm-6 pull-right">' + val.servings + " People" + "</div>" +
+					'</div>' +
+					//display recipe desc
+					'<h4>Description</h4>' +
+					'<p class="recipe-story" data-RecipeId="' + val.recipeId + '">' +
+					val.description +
+					'</p>' +
+					//display view, edit, and share btns
+					'<div class="row recipe-footer">' +
+					'<div class="col-sm-4 recipe-footer-share">' +
+					//edit
+					'<a class="col-sm-6" href="/Recipe/Edit/' + val.recipeId + '" target="_blank">' +
+					'<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>' +
+					'</a>' +
+					//view recipe
+					'<a class="col-sm-6" href="/View/Recipe/' + val.recipeId + ' " class="">' +
+					'<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>' +
+					'</a>' +
+					'</div>' +
+
+					'<div class="col-sm-4 recipe-footer-share">' +
+					//twitter share code
+					'</div>' +
+					'<div class="col-sm-4 recipe-footer-share">' +
+					'<div class="fb-share-button" data-href="https://shareabiteweb.azurewebsites.net/view/recipe/' + val.recipeId + '"data-layout="button_count">' +
+					'</div>' +
+					'</div>' +
+					'</div>' +
+					'</div>' +
+					'</div>' +
+
+					'</div>')
+
+			})
+			readMoreDisplay()
+
+		})
+	}
+	function countUserRecipes(userIdNumber) {
+		var settings = {
+			"async": true,
+			"crossDomain": true,
+			"url": "/Recipe/CountUserRecipes?userInfo=" + userIdNumber,
+			"method": "GET",
+			"headers": {
+				"cache-control": "no-cache",
+			}
+		}
+
+		$.ajax(settings).done(function (response) {
+			if (response == 1) {
+				$('#userRecipeCount').html("I have Preserved " + response + " Memory (Recipe)!")
+			} else if (response >= 25) {
+				$('#userRecipeCount').html("Holy cow, I have Preserved " + response + " Memories (Recipes)!")
+			} else if (response >= 50) {
+				$('#userRecipeCount').html("Wow! I have Preserved over 50 Memories (Recipes)!")
+
+			} else {
+				$('#userRecipeCount').html("I have Preserved " + response + " Memories (Recipes)!")
+
+			}
+		})
+	}
 
 	function readMoreDisplay() {
 		$('.recipe-story').each(function (ind, val) {
 			let storyLength = $(val).html().length;
 			let story = $(val).html();
 			let RecipeId = $(val).attr('data-recipeid');
-			console.log(RecipeId)
 			if (storyLength > 200) {
 				story = story.split(200);
-				$(val).html(story + " <a href='/Recipe/Details/" + RecipeId + "'>Read More...</a>")
+				$(val).html(story + " <a href='/view/recipe/" + RecipeId + "'>Read More...</a>")
 			} else {
 				$(val).html(story)
 			}
@@ -103,3 +209,4 @@
 	}
 </script>
 
+ 

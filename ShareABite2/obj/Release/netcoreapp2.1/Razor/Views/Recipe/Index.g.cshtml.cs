@@ -201,7 +201,7 @@ WriteAttributeValue("", 805, Html.DisplayFor(modelItem => item.ImgUrl), 805, 42,
             WriteLiteral("\r\n\t\t<div class=\"row recipe-footer\">\r\n\t\t\t<div class=\"col-sm-4 recipe-footer-share\">\r\n\t\t\t\t<!--View/Edit-->\r\n\t\t\t\t");
             EndContext();
             BeginContext(1569, 142, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d9acbdbcf3dd4b899f71711139c27395", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c738ab2b3edb434b84d31288e74df31b", async() => {
                 BeginContext(1629, 78, true);
                 WriteLiteral("\r\n\t\t\t\t\t<span class=\"glyphicon glyphicon-edit\" aria-hidden=\"true\"></span>\r\n\t\t\t\t");
                 EndContext();
@@ -276,7 +276,7 @@ WriteAttributeValue("", 1739, item.RecipeId, 1739, 14, false);
             WriteLiteral("</div>\r\n\r\n");
             EndContext();
             BeginContext(2236, 57, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "456d887886414dc8a0e9d6b2066f7fb0", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "10b92e51a1254f979fab94e652ba7bee", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();

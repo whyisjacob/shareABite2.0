@@ -2,7 +2,8 @@
 body {
   margin-top: 40px;
   background: #fff !important;
-  font-family: 'Raleway', Helvetica, Arial, sans-serif; }
+  font-family: 'Raleway', Helvetica, Arial, sans-serif;
+  font-size: 14px; }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'PT Sans', Helvetica, Arial, sans-serif; }
@@ -12,10 +13,25 @@ h1, h2, h3, h4, h5, h6 {
 
 .btn-primary {
   background-color: #f7921e;
-  color: #fff !important; }
+  border-color: #da7808;
+  color: #fff !important;
+  font-weight: 800;
+  font-size: .75em;
+  letter-spacing: .75px;
+  padding: .75em; }
+  .btn-primary:hover {
+    background-color: #f38609;
+    border-color: #a95d06; }
 
 .main-container {
   height: auto; }
+
+a {
+  color: #f7921e; }
+  a .glyphicon {
+    font-size: 1.25em; }
+  a:hover {
+    color: #a95d06; }
 
 .navbar {
   padding: 0px;
@@ -30,13 +46,12 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.75); }
   .navbar a {
     color: #fff !important; }
-    .navbar a:hover {
-      text-decoration: underline !important; }
   .navbar .navbar-btn {
     color: white;
     font-weight: 800; }
-    .navbar .navbar-btn:hover {
-      text-decoration: underline; }
+
+.nav li a:hover {
+  background-color: #784204; }
 
 .recipe {
   cursor: pointer; }
