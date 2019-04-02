@@ -216,5 +216,14 @@ namespace ShareABite2.Controllers
 
 			return Ok(count);
 		}
+		// GET: api/Recipe?userId={{userId}}
+		[HttpGet]
+		public IActionResult GetMyRecipes(string userInfo)
+		{
+
+			var recipeModel = _context.RecipeModel.Where(p => p.UserId == userInfo);
+
+			return new JsonResult(recipeModel);
+		}
 	}
 }

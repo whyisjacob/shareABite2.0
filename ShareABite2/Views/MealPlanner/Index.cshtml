@@ -12,65 +12,96 @@
 
 <p>We have many different recipes for you to include in your weekly meals. Allow us to provide better results by choosing what type of recipes you would like</p>
 <div class="row">
-	<div class="col-sm-4">
-		<div class="row">
-			<h3>Meal Type</h3>
-			<button class="btn btn-default mealType">Breakfast</button>
-			<button class="btn btn-default mealType">Lunch</button>
-			<button class="btn btn-default mealType">Dinner</button>
-		</div>
-		<div class="row">
-			<h3>Difficulty</h3>
-			<button class="btn btn-default difficulty">Easy Please</button>
-			<button class="btn btn-default difficulty">Up to Medium Difficulty</button>
-			<button class="btn btn-default difficulty">It doesn't matter</button>
-		</div>
-		<div class="row">
-			<h3>Cook Time</h3>
-			<button class="btn btn-default cookTime">Twenty Minutes or less</button>
-			<button class="btn btn-default cookTime">Up to Fourty Minutes</button>
-			<button class="btn btn-default cookTime">It doesn't matter</button>
-		</div>
-		<div class="row">
-			@if (SignInManager.IsSignedIn(User))
-			{
-				<h3>Recipe Source</h3>
-				<button class="col-xs-6 btn btn-primary" onclick="myRecipes()">Use my recipes only</button>
-				<button class="col-xs-6 btn btn-primary" onclick="allRecipes()">Use all recipes</button>
-			}
-			else
-			{
-				<h3>Recipe Source</h3>
-				<button class="col-xs-6 btn btn-primary" onclick="allRecipes()">Find Recipes</button>
-			}
-		</div>
+	<div class="col-sm-6">
+		<h3>Meal Type</h3>
+		<button class="btn btn-default mealType">Breakfast</button>
+		<button class="btn btn-default mealType">Lunch</button>
+		<button class="btn btn-default mealType">Dinner</button>
+		<button class="btn btn-default mealType">Dessert</button>
 
+		<h3>Difficulty</h3>
+		<button class="btn btn-default difficulty">Easy Please</button>
+		<button class="btn btn-default difficulty">Up to Medium Difficulty</button>
+		<button class="btn btn-default difficulty">It doesn't matter</button>
+
+		<h3>Cook Time</h3>
+		<button class="btn btn-default cookTime">Twenty Minutes or less</button>
+		<button class="btn btn-default cookTime">Up to Fourty Minutes</button>
+		<button class="btn btn-default cookTime">It doesn't matter</button>
 	</div>
-	<div class="col-sm-8">
-		<h2>My Results</h2>
+	<div class="col-sm-6">
+		more options
+	</div>
+	<div class="col-sm-12">
+		@if (SignInManager.IsSignedIn(User))
+		{
+			<h3>Recipe Source</h3>
+			<button class="col-xs-6 btn btn-primary" onclick="myRecipes()">Use my recipes only</button>
+			<button class="col-xs-6 btn btn-primary" onclick="allRecipes()">Use all recipes</button>
+		}
+		else
+		{
+			<h3>Recipe Source</h3>
+			<button class="col-xs-6 btn btn-primary" onclick="allRecipes()">Find Recipes</button>
+		}
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-12">
+		<hr />
 
-		<ul id="mealList" class="mealList">
-			<li id="sunday" class="mealDisplay">
-			</li>
-			<li id="monday" class="mealDisplay">
+		<h2>Suggested <span id="mealtype"></span> Plans</h2>
+		<h5>Difficulty: <span id="difficultyType"></span></h5>
+		<h5><img width='15px' src='images/clock.png' alt='Total Prep and Cook Time' class='directions_image'> <span id="timeToCook"></span></h5>
 
-			</li>
-			<li id="tuesday" class="mealDisplay">
+		<table class="table">
+			<thead>
+				<tr>
+					<td>Sunday</td>
+					<td>Monday</td>
+					<td>Tuesday</td>
+					<td>Wednesday</td>
+					<td>Thursday</td>
+					<td>Friday</td>
+					<td>Saturday</td>
+				</tr>
+			</thead>
+			<tbody id="mealList">
+				<tr>
+					<td id="sunday" class="mealDisplay"></td>
+					<td id="monday" class="mealDisplay"></td>
+					<td id="tuesday" class="mealDisplay"></td>
+					<td id="wednesday" class="mealDisplay"></td>
+					<td id="thursday" class="mealDisplay"></td>
+					<td id="friday" class="mealDisplay"></td>
+					<td id="saturday" class="mealDisplay"></td>
 
-			</li>
-			<li id="wednesday" class="mealDisplay">
+				</tr>
+			</tbody>
+		</table>
 
-			</li>
-			<li id="thursday" class="mealDisplay">
+		@*<ul id="mealList" class="mealList">
+				<li id="sunday" class="mealDisplay">
+				</li>
+				<li id="monday" class="mealDisplay">
 
-			</li>
-			<li id="friday" class="mealDisplay">
+				</li>
+				<li id="tuesday" class="mealDisplay">
 
-			</li>
-			<li id="saturday" class="mealDisplay">
+				</li>
+				<li id="wednesday" class="mealDisplay">
 
-			</li>
-		</ul>
+				</li>
+				<li id="thursday" class="mealDisplay">
+
+				</li>
+				<li id="friday" class="mealDisplay">
+
+				</li>
+				<li id="saturday" class="mealDisplay">
+
+				</li>
+			</ul>*@
 	</div>
 </div>
 
@@ -102,9 +133,61 @@
 	})
 
 	function myRecipes() {
-		console.log(mealType)
-		console.log(difficulty)
-		console.log(cookTime)
+		$('#mealtype').html(mealType)
+		$('#difficultyType').html(difficulty)
+		$('#timeToCook').html(cookTime)
+
+		//get MY recipes
+		let myRecipes = [];
+		var settings = {
+			"async": true,
+			"crossDomain": true,
+			"url": "/api/Recipe/UserRecipes/@UserManager.GetUserId(User)",
+			"method": "GET",
+			"headers": {
+				"Content-Type": "application/x-www-form-urlencoded",
+				"cache-control": "no-cache",
+			},
+			"data": ""
+		}
+
+		$.ajax(settings).done(function (response) {
+			console.log("Using MY MY MY Reciep[s");
+			response.forEach(function (val) {
+				myRecipes.push(val)
+				console.log(myRecipes)
+			})
+		});
+
+		chosenRecipes = [];
+		$('.mealDisplay').each(function (i, val) {
+			console.log($(val).attr('id'))
+			//Clear list
+			$(val).html(' ');
+			var rn = randomNumber()
+			console.log(rn)
+		//	if (x == "ChooseNewRecipe") {
+		//		randomNumber()
+		//		if (x !== "ChooseNewRecipe") {
+		//			$.get("/api/Recipe/" + x, function (data) {
+		//				buildDisplay(data, val, i)
+
+		//			})
+		//		} else {
+		//			randomNumber()
+		//			if (x !== "ChooseNewRecipe") {
+		//				$(val).$.get("/api/Recipe/" + x, function (data) {
+		//					buildDisplay(data, val, i)
+		//				})
+		//			} else {
+		//			}
+		//		}
+		//	} else {
+		//		$.get("/api/Recipe/" + x, function (data) {
+		//			buildDisplay(data, val, i)
+		//		})
+		//	}
+		})
 	}
 
 	function allRecipes() {
@@ -115,6 +198,10 @@
 	}
 
 	function generateRecipeDisplay() {
+		$('#mealtype').html(mealType)
+		$('#difficultyType').html(difficulty)
+		$('#timeToCook').html(cookTime)
+
 		chosenRecipes = [];
 		$('.mealDisplay').each(function (i, val) {
 			//Clear list
@@ -125,7 +212,7 @@
 				if (x !== "ChooseNewRecipe") {
 					$.get("/api/Recipe/" + x, function (data) {
 						buildDisplay(data, val, i)
-						
+
 					})
 				} else {
 					randomNumber()
@@ -145,7 +232,7 @@
 	}
 	function buildDisplay(data, val, i) {
 		console.log(data)
-		$(val).append("<b>" + daysOfWeek[i] + "</b><h3>" + data.recipeName + "</h3> <img width='50%' src='" +data.imgUrl+ "' alt='"+data.recipeName +"'><br><p>"  + data.description + "</p> <a href='/view/recipe/" + data.recipeId +"' target='_blank'>View</a>")
+		$(val).html("<h4>" + data.recipeName + "</h4> <img width='150px' src='" + data.imgUrl + "' alt='" + data.recipeName + "'><br><p><img width='15px' src='images/clock.png' alt='Total Prep and Cook Time' class='directions_image'> " + data.cookTime + " minutes<br><img width='15px' src='images/servings.png' alt='Servings' class='directions_image'> " + data.servings + " servings</p> <a href='/view/recipe/" + data.recipeId + "' target='_blank'>View Recipe</a>")
 
 	}
 	function randomNumber() {

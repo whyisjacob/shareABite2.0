@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using ShareABite2.Data;
 using ShareABite2.Models;
 
+
 namespace ShareABite2.Controllers.api
 {
 	[Route("api/[controller]")]
@@ -49,6 +50,22 @@ namespace ShareABite2.Controllers.api
 			}
 
 			return Ok(recipeModel);
+		}
+
+		// GET: api/Recipe?userIdNum={{userIdNum}}
+		/**
+		 * Get ALL user recipes
+		 * return as json object
+		 */
+		[HttpGet]
+		[Route("UserRecipes/{userIdNum}")]
+		public async Task<ActionResult> UserRecipes([FromRoute]string userIdNum)
+		{
+			var recipeModel = _context.RecipeModel
+								  .Where(r => r.UserId == userIdNum)
+								  .ToList();
+
+			return new JsonResult(recipeModel);
 		}
 
 		// PUT: api/Recipe/5
@@ -128,7 +145,7 @@ namespace ShareABite2.Controllers.api
 			return _context.RecipeModel.Any(e => e.RecipeId == id);
 		}
 
-		
+
 
 	}
 }
