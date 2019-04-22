@@ -85,7 +85,7 @@ namespace ShareABite2.Controllers
 		// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Create([Bind("RecipeId,RecipeName,DateAdded,DateEdited,Story,Description,ImgUrl,OvenTemp,Servings,PrepTime,CookTime,Public,IngredientsJson,DirectionsJson,UserId")] RecipeModel recipeModel)
+		public async Task<IActionResult> Create([Bind("RecipeId,RecipeName,DateAdded,DateEdited,Story,Description,ImgUrl,OvenTemp,Servings,PrepTime,CookTime,Public,IngredientsJson,DirectionsJson,UserId, RecipeGenre, Difficulty")] RecipeModel recipeModel)
 		{
 			recipeModel.DateAdded = DateTime.Now;
 			recipeModel.DateEdited = DateTime.Now;
@@ -119,7 +119,7 @@ namespace ShareABite2.Controllers
 		// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Edit(int id, [Bind("RecipeId,RecipeName,DateAdded,DateEdited,Story,Description,ImgUrl,OvenTemp,Servings,PrepTime,CookTime,Public,IngredientsJson,DirectionsJson,UserId")] RecipeModel recipeModel)
+		public async Task<IActionResult> Edit(int id, [Bind("RecipeId,RecipeName,DateAdded,DateEdited,Story,Description,ImgUrl,OvenTemp,Servings,PrepTime,CookTime,Public,IngredientsJson,DirectionsJson,UserId, RecipeGenre, Difficulty")] RecipeModel recipeModel)
 		{
 			if (id != recipeModel.RecipeId)
 			{

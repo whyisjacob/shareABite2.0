@@ -52,21 +52,41 @@ namespace ShareABite2.Controllers.api
 			return Ok(recipeModel);
 		}
 
-		// GET: api/Recipe?userIdNum={{userIdNum}}
-		/**
-		 * Get ALL user recipes
-		 * return as json object
-		 */
+		// GET: api/Recipe/Recipe?userIdNum={{userIdNum}}
 		[HttpGet]
-		[Route("UserRecipes/{userIdNum}")]
-		public async Task<ActionResult> UserRecipes([FromRoute]string userIdNum)
+		[Route("UserRecipes/{userIdNum}/{mealType}/{difficulty}/{cookTime}")]
+		public async Task<ActionResult> UserRecipes([FromRoute]string userIdNum, int mealType, int difficulty, int cookTime)
 		{
 			var recipeModel = _context.RecipeModel
 								  .Where(r => r.UserId == userIdNum)
+								  .Where(r => r.RecipeGenre == mealType)
+								  .Where(r => r.Difficulty <= difficulty)
+								  .Where(r => r.CookTime <= cookTime)
+								  .Where(r => r.Public == true)
+								  .OrderBy(c => Guid.NewGuid())
+								  .Take(7)
 								  .ToList();
 
 			return new JsonResult(recipeModel);
 		}
+
+		//GET: api/RandomRecipe/{mealType}/{difficulty}/{cookTime
+		[HttpGet]
+		[Route("RandomRecipe/{mealType}/{difficulty}/{cookTime}")]
+		public async Task<ActionResult> RandomRecipe([FromRoute]int mealType, int difficulty, int cookTime)
+		{
+			var recipeModel = _context.RecipeModel
+								  .Where(r => r.RecipeGenre == mealType)
+								  .Where(r => r.Difficulty <= difficulty)
+								  .Where(r => r.CookTime <= cookTime)
+								  .Where(r => r.Public == true)
+								  .OrderBy(c => Guid.NewGuid())
+								  .Take(7)
+								  .ToList();
+
+			return new JsonResult(recipeModel);
+		}
+
 
 		// PUT: api/Recipe/5
 		[HttpPut("{id}")]

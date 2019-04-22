@@ -11,6 +11,28 @@ h1, h2, h3, h4, h5, h6 {
 .btn {
   border-radius: 0px !important; }
 
+.btn-default:hover {
+  background-color: #fab668 !important;
+  border-color: #a95d06; }
+
+.btn-default:active {
+  background-color: #fab668 !important;
+  border-color: #a95d06; }
+
+.btn-default:visited {
+  background-color: #fab668 !important;
+  border-color: #a95d06; }
+
+.btn-default:focus {
+  background-color: #fab668 !important;
+  border-color: #a95d06; }
+
+.ActiveFilter {
+  background-color: #fcdab2; }
+  .ActiveFilter:hover {
+    background-color: #fab668;
+    border-color: #a95d06; }
+
 .btn-primary {
   background-color: #f7921e;
   border-color: #da7808;
@@ -21,6 +43,15 @@ h1, h2, h3, h4, h5, h6 {
   padding: .75em; }
   .btn-primary:hover {
     background-color: #f38609;
+    border-color: #a95d06; }
+  .btn-primary:active {
+    background-color: #fab668 !important;
+    border-color: #a95d06; }
+  .btn-primary:visited {
+    background-color: #f7921e;
+    border-color: #a95d06; }
+  .btn-primary:focus {
+    background-color: #fab668 !important;
     border-color: #a95d06; }
 
 .main-container {
@@ -36,7 +67,6 @@ a {
 .navbar {
   padding: 0px;
   margin: -40px 0px 0px 0px;
-  height: 100%;
   background-color: #da7808;
   color: #fff;
   border-bottom: #a95d06;
@@ -74,3 +104,6 @@ a {
   width: 100% !important;
   background-position: center center;
   margin: 10px 0px; }
+
+.UploadedImg {
+  width: 150px; }

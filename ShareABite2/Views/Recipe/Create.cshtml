@@ -1,19 +1,29 @@
 ﻿@model ShareABite2.Models.RecipeModel
-@using Microsoft.AspNet.Identity;
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
 
 @{
-	ViewData["Title"] = "Create";
+	ViewData["Title"] = "Create New Recipe";
 }
 
-<h2>Create</h2>
+<h2>Create New Recipe</h2>
 
 <h4>RecipeModel</h4>
 <hr />
 <div class="row">
 	<div class="col-md-4">
-		<form id="NewRecipeForm" asp-action="Create">
-			<input asp-for="UserId" type="hidden" class="form-control" value="@User.Identity.GetUserId()" />
+		<form asp-action="Create">
+			<input type="hidden" asp-for="DateAdded" class="form-control" value="@DateTime.Now" />
+			<input type="hidden" asp-for="DateEdited" class="form-control" value="@DateTime.Now" />
+			<input type="hidden" asp-for="UserId" class="form-control" value="@UserManager.GetUserId(User)" />
+			<input type="hidden" asp-for="ImgUrl" class="form-control" />
+
+
 			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<input type="hidden" asp-for="RecipeId" />
 			<div class="form-group">
 				<label asp-for="RecipeName" class="control-label"></label>
 				<input asp-for="RecipeName" class="form-control" />
@@ -21,29 +31,22 @@
 			</div>
 			<div class="form-group">
 				<label asp-for="Story" class="control-label"></label>
-				<input asp-for="Story" class="form-control" />
+				<textarea asp-for="Story" rows="5" class="form-control"></textarea>
 				<span asp-validation-for="Story" class="text-danger"></span>
 			</div>
 			<div class="form-group">
 				<label asp-for="Description" class="control-label"></label>
-				<input asp-for="Description" class="form-control" />
+				<textarea asp-for="Description" rows="5" class="form-control"></textarea>
 				<span asp-validation-for="Description" class="text-danger"></span>
 			</div>
-
 			<div class="form-group">
-				<label asp-for="ImgUrl" class="control-label"></label>
-				<input asp-for="ImgUrl" class="form-control" />
-				<span asp-validation-for="ImgUrl" class="text-danger"></span>
-			</div>
-			<div class="form-group">
-				<input type="file" name="pic" accept="image/*" class="required form-control" placeholder="Image from Web" aria-describedby="sizing-addon2"
+				<input type="file" name="pic" accept="image/*" class="form-control" placeholder="Image from Web" aria-describedby="sizing-addon2"
 					   name='image' id="image" value="upload" d onchange="handleFiles(this.files)">
 				<span id="imgPreview"></span>
 				<br>
 				<progress id="uploader" value="0" max="100">0%</progress>
 				<span id="uploadstatus"></span>
 			</div>
-
 			<div class="form-group">
 				<label asp-for="OvenTemp" class="control-label"></label>
 				<input asp-for="OvenTemp" class="form-control" />
@@ -67,42 +70,49 @@
 			<div class="form-group">
 				<div class="checkbox">
 					<label>
+						@* TODO Add description *@
 						<input asp-for="Public" /> @Html.DisplayNameFor(model => model.Public)
 					</label>
 				</div>
 			</div>
-			<div id="ingredientDisplay" class="form-group">
-				<label class="control-label ">Ingredients</label>
-				<input type="text" id="ingredient_1" class="form-control ingredients" />
+			<div class="form-group">
+				<label asp-for="IngredientsJson" class="control-label"></label>
+				<textarea asp-for="IngredientsJson" class="form-control" rows="5"></textarea>
+				<span asp-validation-for="IngredientsJson" class="text-danger"></span>
 			</div>
-			<span class="btn btn-default" onclick="addIngredient()">Add Ingredient</span>
-			<div id="directionDisplay" class="form-group">
-				<label class="control-label ">Directions</label>
-				<input type="text" id="directions_1" class="form-control directions" />
+			<div class="form-group">
+				<label asp-for="DirectionsJson" class="control-label"></label>
+				<textarea asp-for="DirectionsJson" class="form-control" rows="5"></textarea>
+				<span asp-validation-for="DirectionsJson" class="text-danger"></span>
 			</div>
-			<span class="btn btn-default" onclick="addDirection()">Add Direction</span>
 			<div class="form-group">
 				<label asp-for="Difficulty" class="control-label"></label>
 				<input asp-for="Difficulty" class="form-control" min="0" max="10" />
 				<span asp-validation-for="Difficulty" class="text-danger"></span>
 			</div>
 			<div class="form-group">
-				<label asp-for="RecipeGenre" class="control-label"></label>
+				<label asp-for="RecipeGenre" class="control-label">Meal Type</label>
 				<Select asp-for="RecipeGenre" class="form-control">
 					<option value="1">Breakfast</option>
 					<option value="2">Lunch</option>
 					<option value="3">Dinner</option>
 					<option value="4">Dessert</option>
 					<option value="5">Snack</option>
-					<option value="6">Vegetarian</option>
-					<option value="7">Vegan</option>
-					<option value="8">Gluten Free</option>
-					<option value="9">Gluten Free</option>
+					<option value="6">Ingredient (Example: Pizza Dough)</option>
 				</Select>
 				<span asp-validation-for="RecipeGenre" class="text-danger"></span>
 			</div>
 			<div class="form-group">
-				<input type="submit" value="Create" class="btn btn-default" onclick="submitForm(event)" />
+				<label for="specialOptions" class="control-label">Special Options*</label>
+				<select class="form-control">
+					<option value="0">None</option>
+					<option value="1">Vegetarian</option>
+					<option value="2">Vegan</option>
+					<option value="3">Gluten Free</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<input type="submit" value="Save" class="btn btn-default" />
 			</div>
 		</form>
 	</div>
@@ -112,13 +122,11 @@
 	<a asp-action="Index">Back to List</a>
 </div>
 
-@section Scripts {
-	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
-}
-<script src="https://www.gstatic.com/firebasejs/4.6.1/firebase.js"></script>
 
+@*<script src="https://www.gstatic.com/firebasejs/4.6.1/firebase.js"></script>
 <script>
+
 	var ingNum = 2,
 		dirNum = 2;
 
@@ -138,7 +146,7 @@
 	var img;
 	var thefile
 	var rImage;
-	var uid = '@User.Identity.GetUserId()';
+	var uid = '@UserManager.GetUserId(User)';
 
 	function handleFiles(files) {
 		$('#imgPreview').html('');
@@ -150,7 +158,7 @@
 			}
 
 			img = document.createElement("img");
-			img.classList.add("obj");
+			img.classList.add("UploadedImg");
 			img.file = file;
 			document.getElementById('imgPreview').appendChild(img);
 
@@ -192,84 +200,286 @@
 			console.log('snapshot in done');
 			console.log(v);
 			rImage = v.task.N.downloadURLs[0];
+			$('#ImgUrl').val(rImage)
 			console.log(rImage)
 		});
 	});
+</script>*@
 
-	//ADD Ingredient
-	function addIngredient() {
-		$('#ingredientDisplay').append(
-			'<input type="text" class="form-control ingredients" placeholder="Ingredients"name="ingredient_' +
-			ingNum + '" id="ingredient_' + ingNum + '">');
-		$('#ingredient_' + ingNum).addClass('text-primary').focus();
-		ingNum++
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<h2>Create</h2>
+
+	<h4>RecipeModel</h4>
+	<hr />
+	<div class="row">
+		<div class="col-md-4">
+			<form id="NewRecipeForm" asp-action="Create">
+				<input type="hidden" asp-for="UserId" class="form-control" value="@UserManager.GetUserId(User)" />
+				<input type="hidden" asp-for="ImgUrl" class="form-control" />
+				<div class="form-group">
+					<label asp-for="RecipeName" class="control-label"></label>
+					<input asp-for="RecipeName" class="form-control" />
+					<span asp-validation-for="RecipeName" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="Story" class="control-label"></label>
+					<input asp-for="Story" class="form-control" />
+					<span asp-validation-for="Story" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="Description" class="control-label"></label>
+					<input asp-for="Description" class="form-control" />
+					<span asp-validation-for="Description" class="text-danger"></span>
+				</div>
+
+				<div class="form-group">
+					<input type="file" name="pic" accept="image/*" class="required form-control" placeholder="Image from Web" aria-describedby="sizing-addon2"
+						   name='image' id="image" value="upload" d onchange="handleFiles(this.files)">
+					<span id="imgPreview"></span>
+					<br>
+					<progress id="uploader" value="0" max="100">0%</progress>
+					<span id="uploadstatus"></span>
+				</div>
+
+				<div class="form-group">
+					<label asp-for="OvenTemp" class="control-label"></label>
+					<input asp-for="OvenTemp" class="form-control" />
+					<span asp-validation-for="OvenTemp" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="Servings" class="control-label"></label>
+					<input asp-for="Servings" class="form-control" />
+					<span asp-validation-for="Servings" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="PrepTime" class="control-label"></label>
+					<input asp-for="PrepTime" class="form-control" />
+					<span asp-validation-for="PrepTime" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="CookTime" class="control-label"></label>
+					<input asp-for="CookTime" class="form-control" />
+					<span asp-validation-for="CookTime" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<div class="checkbox">
+						<label>
+							<input asp-for="Public" /> @Html.DisplayNameFor(model => model.Public)
+						</label>
+					</div>
+				</div>
+				<div id="ingredientDisplay" class="form-group">
+					<label class="control-label ">Ingredients</label>
+					<textarea asp-for="IngredientsJson" class="form-control" rows="5"></textarea>
+				</div>
+				<div id="directionDisplay" class="form-group">
+					<label class="control-label ">Directions</label>
+					<textarea asp-for="DirectionsJson" class="form-control" rows="5"></textarea>
+				</div>
+				<div class="form-group">
+					<label asp-for="Difficulty" class="control-label"></label>
+					<input asp-for="Difficulty" class="form-control" min="0" max="10" />
+					<span asp-validation-for="Difficulty" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="RecipeGenre" class="control-label"></label>
+					<Select asp-for="RecipeGenre" class="form-control">
+						<option value="1">Breakfast</option>
+						<option value="2">Lunch</option>
+						<option value="3">Dinner</option>
+						<option value="4">Dessert</option>
+						<option value="5">Snack</option>
+						<option value="6">Vegetarian</option>
+						<option value="7">Vegan</option>
+						<option value="8">Gluten Free</option>
+						<option value="9">Gluten Free</option>
+					</Select>
+					<span asp-validation-for="RecipeGenre" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<input type="submit" value="Create" class="btn btn-default" onclick="submitForm(event)" />
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<div>
+		<a asp-action="Index">Back to List</a>
+	</div>
+
+	@section Scripts {
+		@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
 	}
-	function addDirection() {
-		$('#directionDisplay').append(
-			'<input type="text" class="form-control directions" placeholder="Direction"name="direction_' +
-			dirNum + '" id="direction_' + dirNum + '">');
-		$('#direction_' + dirNum).addClass('text-primary').focus();
-		dirNum++
-	}
+	<script src="https://www.gstatic.com/firebasejs/4.6.1/firebase.js"></script>
 
-	function combineInfo(data) {
-		data = "." + data
-		var dataArr = [];
-		$(data).each(function (ind, val) {
-			console.log(val)
-			dataArr.push($(val).val())
-		})
-		return dataArr;
-	}
-	
+	<script>
+		var ingNum = 2,
+			dirNum = 2;
 
-	function submitForm(e) {
-		e.preventDefault();
-		//add stuff to submit form
-		var ingredientsArr = combineInfo('ingredients')
-		var directionsArr = combineInfo('directions')
-		console.log(ingredientsArr)
-		console.log(directionsArr)
+		var config = {
+			apiKey: "AIzaSyCgoRfIkQr6LbDgERECflwrP4Dmi2-TPKA",
+			authDomain: "grab-a-bite-df6c2.firebaseapp.com",
+			databaseURL: "https://grab-a-bite-df6c2.firebaseio.com",
+			projectId: "grab-a-bite-df6c2",
+			storageBucket: "grab-a-bite-df6c2.appspot.com",
+			messagingSenderId: "915542502205"
+		};
+		firebase.initializeApp(config);
 
-		var form = {
-			RecipeName: $('#RecipeName').val(),
-			Story: $('#Story').val(),
-			Description: $('#Description').val(),
-			ImgUrl: rImage,
-			OvenTemp: $('#OvenTemp').val(),
-			Servings: $('#Servings').val(),
-			PrepTime: $('#PrepTime').val(),
-			CookTime: $('#CookTime').val(),
-			Public: $('#Public').val(),
-			IngredientsJson: ingredientsArr,
-			DirectionsJson: directionsArr,
-			RecipeGenre: $('#RecipeGenre').val(),
-			Difficulty: $('#Difficulty').val(),
-			UserId: '@User.Identity.GetUserId()',
-			DateAdded: '@DateTime.Now',
-			DateEdited: '@DateTime.Now'
+
+		var database = firebase.database();
+		var defaultAuth = firebase.auth();
+		var img;
+		var thefile
+		var rImage;
+		var uid = '@UserManager.GetUserId(User)';
+
+		function handleFiles(files) {
+			$('#imgPreview').html('');
+			for (var i = 0; i < files.length; i++) {
+				file = files[i];
+
+				if (!file.type.startsWith('image/')) {
+					continue
+				}
+
+				img = document.createElement("img");
+				img.classList.add("obj");
+				img.file = file;
+				document.getElementById('imgPreview').appendChild(img);
+
+				var reader = new FileReader();
+				reader.onload = (function (aImg) {
+					return function (e) {
+						aImg.src = e.target.result;
+					};
+				})(img);
+				reader.readAsDataURL(file);
+			}
 		}
 
+		var v
+		// Create a root reference
+		var uploader = document.getElementById('uploader');
+		var fileButton = document.getElementById('image');
+		fileButton.addEventListener('change', function (e) {
+			$('#uploadstatus').html(
+				'<br>The image is uploading...<br><strong>Do not refresh the page or navigate away.<br><br></strong>')
 
-		console.log(form)
-		var settings = {
-			"async": true,
-			"crossDomain": true,
-			"url": "https://localhost:44342/api/Recipe",
-			"method": "POST",
-			"headers": {
-				"Content-Type": "application/json",
-				"cache-control": "no-cache",
-				"Postman-Token": "e2a1693f-fa7c-4fd3-b348-72c0ad780744"
-			},
-			"processData": false,
-			"data": "{\"recipeName\":\"" + form.RecipeName + "\",\"dateAdded\":\"" + form.DateAdded + "\",\"dateEdited\":\"" + form.DateEdited + "\",\"story\":\"" + form.Story + "\",\"description\":\"" + form.Description + "\",\"imgUrl\":\"" + form.ImgUrl + "\",\"ovenTemp\":\"" + form.OvenTemp + "\",\"servings\":\"" + form.Servings + "\",\"prepTime\":" + form.PrepTime + ",\"cookTime\":" + form.CookTime + ",\"public\":" + form.Public + ",\"ingredientsJson\":\"" + form.IngredientsJson + "\",\"directionsJson\":\"" + form.DirectionsJson + "\",\"userId\":\"" + form.UserId + "\",\"recipeGenre\":" + form.RecipeGenre + ",\"difficulty\":" + form.Difficulty +"}"
-		}
+			var file = e.target.files[0];
+			var storageRef = firebase.storage().ref(uid + '/recipe_img/' + file.name);
+			var task = storageRef.put(file);
+			task.on('state_changed', function progress(snapshot) {
+				var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+				uploader.value = percentage;
+				console.log('snapshot')
+				console.log(snapshot)
+				console.log('image url');
+				v = snapshot
 
-		$.ajax(settings).done(function (response) {
-			console.log(response);
+			}, function error(err) {
+				console.log(err)
+
+			}, function complete(data) {
+				console.log(data);
+				$('#uploadstatus').html('<br>Upload Complete!<br><br>')
+				console.log('snapshot in done');
+				console.log(v);
+				rImage = v.task.N.downloadURLs[0];
+				console.log(rImage)
+			});
 		});
 
-	}
+		//ADD Ingredient
+		function addIngredient() {
+			$('#ingredientDisplay').append(
+				'<input type="text" class="form-control ingredients" placeholder="Ingredients"name="ingredient_' +
+				ingNum + '" id="ingredient_' + ingNum + '">');
+			$('#ingredient_' + ingNum).addClass('text-primary').focus();
+			ingNum++
+		}
+		function addDirection() {
+			$('#directionDisplay').append(
+				'<input type="text" class="form-control directions" placeholder="Direction"name="direction_' +
+				dirNum + '" id="direction_' + dirNum + '">');
+			$('#direction_' + dirNum).addClass('text-primary').focus();
+			dirNum++
+		}
 
-</script>
+		function combineInfo(data) {
+			data = "." + data
+			var dataArr = [];
+			$(data).each(function (ind, val) {
+				console.log(val)
+				dataArr.push($(val).val())
+			})
+			return dataArr;
+		}
+
+
+		function submitForm(e) {
+			e.preventDefault();
+			//add stuff to submit form
+			//var ingredientsArr = combineInfo('ingredients')
+			//var directionsArr = combineInfo('directions')
+			//console.log(ingredientsArr)
+			//console.log(directionsArr)
+
+			var form = {
+				RecipeName: $('#RecipeName').val(),
+				Story: $('#Story').val(),
+				Description: $('#Description').val(),
+				ImgUrl: rImage,
+				OvenTemp: $('#OvenTemp').val(),
+				Servings: $('#Servings').val(),
+				PrepTime: $('#PrepTime').val(),
+				CookTime: $('#CookTime').val(),
+				Public: $('#Public').val(),
+				IngredientsJson: $('#IngredientsJson').val(),
+				DirectionsJson: $('#DirectionsJson').val(),
+				RecipeGenre: $('#RecipeGenre').val(),
+				Difficulty: $('#Difficulty').val(),
+				UserId: '@UserManager.GetUserId(User)',
+				DateAdded: '@DateTime.Now',
+				DateEdited: '@DateTime.Now'
+			}
+
+
+			console.log(form)
+			var settings = {
+				"async": true,
+				"crossDomain": true,
+				"url": "/api/Recipe",
+				"method": "POST",
+				"headers": {
+					"Content-Type": "application/json",
+					"cache-control": "no-cache",
+					"Postman-Token": "e2a1693f-fa7c-4fd3-b348-72c0ad780744"
+				},
+				"processData": false,
+				"data": "{\"recipeName\":\"" + form.RecipeName + "\",\"dateAdded\":\"" + form.DateAdded + "\",\"dateEdited\":\"" + form.DateEdited + "\",\"story\":\"" + form.Story + "\",\"description\":\"" + form.Description + "\",\"imgUrl\":\"" + form.ImgUrl + "\",\"ovenTemp\":\"" + form.OvenTemp + "\",\"servings\":\"" + form.Servings + "\",\"prepTime\":" + form.PrepTime + ",\"cookTime\":" + form.CookTime + ",\"public\":" + form.Public + ",\"ingredientsJson\":\"" + form.IngredientsJson + "\",\"directionsJson\":\"" + form.DirectionsJson + "\",\"userId\":\"" + form.UserId + "\",\"recipeGenre\":" + form.RecipeGenre + ",\"difficulty\":" + form.Difficulty +"}"
+			}
+
+			$.ajax(settings).done(function (response) {
+				console.log(response);
+			});
+
+		}
+
+	</script>
