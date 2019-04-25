@@ -32,7 +32,7 @@
 		</section>
 		<section id="StoryDisplay">
 			<h4 data-display="show">
-				Story <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+				Story <span class="fa fa-chevron-down" aria-hidden="true"></span>
 			</h4>
 			<div id="story" class="description ">
 				@Html.DisplayFor(model => model.Story)
@@ -42,7 +42,7 @@
 
 		<section>
 			<h4 data-display="show">
-				Description <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+				Description <span class="fa fa-chevron-down" aria-hidden="true"></span>
 			</h4>
 			<div id="description" class="description ">
 				@Html.DisplayFor(model => model.Description)
@@ -51,18 +51,18 @@
 
 		<section>
 			<h4 data-display="hidden">
-				Ingredients <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+				Ingredients <span class="fa fa-chevron-right" aria-hidden="true"></span>
 			</h4>
-			<div id="ingredients" class="ingredients ">
+			<div id="ingredients" class="ingredients hidden">
 				<ul id="ingredients_list"></ul>
 			</div>
 		</section>
 
 		<section>
 			<h4 data-display="hidden">
-				Put it all together <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+				Put it all together <span class="fa fa-chevron-right" aria-hidden="true"></span>
 			</h4>
-			<div id="directions" class="directions">
+			<div id="directions" class="directions hidden">
 				<div class="disp row">
 					<div class="display col-xs-4">
 						<img src="~/images/oven.png" alt="Oven Temperature" class="directions_image"><br>
@@ -127,7 +127,7 @@
 				if (ingr.length === 0) {
 					//do not display
 				} else {
-					$('#ingredients_list').append('<li class="ing_display"> <span class=" glyphicon glyphicon-remove-circle"></span> ' + ingr + '</li>');
+					$('#ingredients_list').append('<li class="ing_display"> <span class=" fa fa-times-circle-o"></span> ' + ingr + '</li>');
 				}
 				ing++
 			})
@@ -158,6 +158,26 @@
 				jQuery("time.timeago").timeago();
 
 		});
+
+
+	$(document).on('click', 'h4', function () {
+		var display = $(this).attr('data-display');
+		if (display == 'hidden') {
+			$(this).attr('data-display', 'show');
+			$(this).children('span').attr('class', 'fa fa-chevron-down');
+			$(this).siblings('div').removeClass('hidden');
+		} else {
+			$(this).attr('data-display', 'hidden');
+			$(this).children('span').attr('class', 'fa fa-chevron-right ');
+			$(this).siblings('div').addClass('hidden');
+		}
+	});
+
+	$(document).on('click', '.ing_display', function () {
+		console.log('click')
+		$(this).children('.fa').toggleClass('fa-times-circle-o')
+		$(this).children('.fa').toggleClass('fa-check-circle-o')
+	})
 
 </script>
 

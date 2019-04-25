@@ -166,6 +166,19 @@ namespace ShareABite2.Controllers.api
 		}
 
 
+		//GET: Recipe/MostRecentRecipes/id
+		[HttpGet]
+		[Route("MostRecentRecipes/{id}")]
+		public IActionResult MostRecentRecipes(int id)
+		{
+
+			var recipeModel = (from p in _context.RecipeModel
+							   orderby p.RecipeId descending
+							   select p).Take(id);
+
+
+			return Ok(recipeModel);
+		}
 
 	}
 }

@@ -10,325 +10,153 @@
 }
 
 <h2>Create New Recipe</h2>
+<div class="row Recipe_step">
+	<div id="step1" class="step Active_Step">
+		Step 1
+	</div>
+	<div class="Recipe_step_line"></div>
+	<div id="step2" class="step">
+		Step 2
+	</div>
+	<div class="Recipe_step_line"></div>
+	<div id="step3" class="step">
+		Step 3
+	</div>
+	<div class="Recipe_step_line"></div>
+	<div id="step4" class="step">
+		Step 4
+	</div>
 
-<h4>RecipeModel</h4>
-<hr />
+</div>
 <div class="row">
-	<div class="col-md-4">
-		<form asp-action="Create">
-			<input type="hidden" asp-for="DateAdded" class="form-control" value="@DateTime.Now" />
-			<input type="hidden" asp-for="DateEdited" class="form-control" value="@DateTime.Now" />
-			<input type="hidden" asp-for="UserId" class="form-control" value="@UserManager.GetUserId(User)" />
-			<input type="hidden" asp-for="ImgUrl" class="form-control" />
+	<form id="NewRecipeForm" asp-action="Create">
+		<input type="hidden" asp-for="UserId" class="form-control" value="@UserManager.GetUserId(User)" />
+		<input type="hidden" asp-for="ImgUrl" class="form-control" />
 
+		<span id="step1_display" data-step="1" class="step_display row">
+			<div class="col-sm-6">
+				<div class="form-group">
+					<label asp-for="RecipeName" class="control-label">Recipe Name</label>
+					<input asp-for="RecipeName" class="form-control" required/>
+					<span asp-validation-for="RecipeName" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="Story" class="control-label">Recipe Story</label>
+					<textarea asp-for="Story" class="form-control" rows="10" required></textarea>
+					<span asp-validation-for="Story" class="text-danger"></span>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="form-group">
+					<label asp-for="Description" class="control-label">Recipe Description</label>
+					<textarea asp-for="Description" class="form-control" rows="10" required></textarea>
+					<span asp-validation-for="Description" class="text-danger"></span>
+				</div>
 
-			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-			<input type="hidden" asp-for="RecipeId" />
-			<div class="form-group">
-				<label asp-for="RecipeName" class="control-label"></label>
-				<input asp-for="RecipeName" class="form-control" />
-				<span asp-validation-for="RecipeName" class="text-danger"></span>
+				<div class="form-group">
+					<label for="file" class="control-label">Recipe Image</label>
+					<br>
+
+					<span id="imgPreview"></span>
+					<input type="file" name="pic" accept="image/*" class="required form-control" placeholder="Image Upload" aria-describedby="sizing-addon2" required name='image' id="image" value="upload" d onchange="handleFiles(this.files)">
+					<progress id="uploader" value="0" max="100">0%</progress>
+					<span id="uploadstatus"></span>
+				</div>
 			</div>
-			<div class="form-group">
-				<label asp-for="Story" class="control-label"></label>
-				<textarea asp-for="Story" rows="5" class="form-control"></textarea>
-				<span asp-validation-for="Story" class="text-danger"></span>
-			</div>
-			<div class="form-group">
-				<label asp-for="Description" class="control-label"></label>
-				<textarea asp-for="Description" rows="5" class="form-control"></textarea>
-				<span asp-validation-for="Description" class="text-danger"></span>
-			</div>
-			<div class="form-group">
-				<input type="file" name="pic" accept="image/*" class="form-control" placeholder="Image from Web" aria-describedby="sizing-addon2"
-					   name='image' id="image" value="upload" d onchange="handleFiles(this.files)">
-				<span id="imgPreview"></span>
-				<br>
-				<progress id="uploader" value="0" max="100">0%</progress>
-				<span id="uploadstatus"></span>
-			</div>
+		</span>
+		<span id="step2_display" data-step="2" class="step_display hidden">
+
 			<div class="form-group">
 				<label asp-for="OvenTemp" class="control-label"></label>
-				<input asp-for="OvenTemp" class="form-control" />
+				<input asp-for="OvenTemp" class="form-control" required value="0"/>
 				<span asp-validation-for="OvenTemp" class="text-danger"></span>
 			</div>
 			<div class="form-group">
 				<label asp-for="Servings" class="control-label"></label>
-				<input asp-for="Servings" class="form-control" />
+				<input asp-for="Servings" class="form-control" required />
 				<span asp-validation-for="Servings" class="text-danger"></span>
 			</div>
 			<div class="form-group">
 				<label asp-for="PrepTime" class="control-label"></label>
-				<input asp-for="PrepTime" class="form-control" />
+				<input asp-for="PrepTime" class="form-control" required />
 				<span asp-validation-for="PrepTime" class="text-danger"></span>
 			</div>
 			<div class="form-group">
 				<label asp-for="CookTime" class="control-label"></label>
-				<input asp-for="CookTime" class="form-control" />
+				<input asp-for="CookTime" class="form-control" required />
 				<span asp-validation-for="CookTime" class="text-danger"></span>
 			</div>
 			<div class="form-group">
 				<div class="checkbox">
 					<label>
-						@* TODO Add description *@
-						<input asp-for="Public" /> @Html.DisplayNameFor(model => model.Public)
+						<input asp-for="Public" checked/> @Html.DisplayNameFor(model => model.Public)
 					</label>
 				</div>
 			</div>
-			<div class="form-group">
-				<label asp-for="IngredientsJson" class="control-label"></label>
-				<textarea asp-for="IngredientsJson" class="form-control" rows="5"></textarea>
-				<span asp-validation-for="IngredientsJson" class="text-danger"></span>
+		</span>
+		<span id="step3_display" data-step="3" class="step_display hidden">
+
+			<div id="ingredientDisplay" class="form-group">
+				<label class="control-label ">Ingredients</label>
+				<textarea asp-for="IngredientsJson" class="form-control" rows="12" required></textarea>
 			</div>
-			<div class="form-group">
-				<label asp-for="DirectionsJson" class="control-label"></label>
-				<textarea asp-for="DirectionsJson" class="form-control" rows="5"></textarea>
-				<span asp-validation-for="DirectionsJson" class="text-danger"></span>
+			<div id="directionDisplay" class="form-group">
+				<label class="control-label ">Directions</label>
+				<textarea asp-for="DirectionsJson" class="form-control" rows="12" required></textarea>
 			</div>
+		</span>
+		<span id="step4_display" data-step="3" class="step_display hidden">
+
 			<div class="form-group">
 				<label asp-for="Difficulty" class="control-label"></label>
-				<input asp-for="Difficulty" class="form-control" min="0" max="10" />
+				<input asp-for="Difficulty" type="range" min="1" max="10" step="1" required onchange="printValue()"/>
 				<span asp-validation-for="Difficulty" class="text-danger"></span>
+				<span id="difficulty-display"></span>
 			</div>
+
 			<div class="form-group">
-				<label asp-for="RecipeGenre" class="control-label">Meal Type</label>
-				<Select asp-for="RecipeGenre" class="form-control">
+				<label asp-for="RecipeGenre" class="control-label"></label>
+				<Select asp-for="RecipeGenre" class="form-control" required>
 					<option value="1">Breakfast</option>
 					<option value="2">Lunch</option>
 					<option value="3">Dinner</option>
 					<option value="4">Dessert</option>
 					<option value="5">Snack</option>
-					<option value="6">Ingredient (Example: Pizza Dough)</option>
+					<option value="6">Vegetarian</option>
+					<option value="7">Vegan</option>
+					<option value="8">Gluten Free</option>
+					<option value="9">Gluten Free</option>
 				</Select>
 				<span asp-validation-for="RecipeGenre" class="text-danger"></span>
 			</div>
 			<div class="form-group">
-				<label for="specialOptions" class="control-label">Special Options*</label>
-				<select class="form-control">
-					<option value="0">None</option>
-					<option value="1">Vegetarian</option>
-					<option value="2">Vegan</option>
-					<option value="3">Gluten Free</option>
-				</select>
+				<input type="submit" value="Add Recipe" class="btn btn-primary form-control" onclick="submitForm(event)" />
 			</div>
-			<div class="form-group">
-				<input type="submit" value="Save" class="btn btn-default" />
-			</div>
-		</form>
-	</div>
-</div>
+		</span>
 
-<div>
-	<a asp-action="Index">Back to List</a>
-</div>
-
-
-
-@*<script src="https://www.gstatic.com/firebasejs/4.6.1/firebase.js"></script>
-<script>
-
-	var ingNum = 2,
-		dirNum = 2;
-
-	var config = {
-		apiKey: "AIzaSyCgoRfIkQr6LbDgERECflwrP4Dmi2-TPKA",
-		authDomain: "grab-a-bite-df6c2.firebaseapp.com",
-		databaseURL: "https://grab-a-bite-df6c2.firebaseio.com",
-		projectId: "grab-a-bite-df6c2",
-		storageBucket: "grab-a-bite-df6c2.appspot.com",
-		messagingSenderId: "915542502205"
-	};
-	firebase.initializeApp(config);
-
-
-	var database = firebase.database();
-	var defaultAuth = firebase.auth();
-	var img;
-	var thefile
-	var rImage;
-	var uid = '@UserManager.GetUserId(User)';
-
-	function handleFiles(files) {
-		$('#imgPreview').html('');
-		for (var i = 0; i < files.length; i++) {
-			file = files[i];
-
-			if (!file.type.startsWith('image/')) {
-				continue
-			}
-
-			img = document.createElement("img");
-			img.classList.add("UploadedImg");
-			img.file = file;
-			document.getElementById('imgPreview').appendChild(img);
-
-			var reader = new FileReader();
-			reader.onload = (function (aImg) {
-				return function (e) {
-					aImg.src = e.target.result;
-				};
-			})(img);
-			reader.readAsDataURL(file);
-		}
-	}
-
-	var v
-	// Create a root reference
-	var uploader = document.getElementById('uploader');
-	var fileButton = document.getElementById('image');
-	fileButton.addEventListener('change', function (e) {
-		$('#uploadstatus').html(
-			'<br>The image is uploading...<br><strong>Do not refresh the page or navigate away.<br><br></strong>')
-
-		var file = e.target.files[0];
-		var storageRef = firebase.storage().ref(uid + '/recipe_img/' + file.name);
-		var task = storageRef.put(file);
-		task.on('state_changed', function progress(snapshot) {
-			var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-			uploader.value = percentage;
-			console.log('snapshot')
-			console.log(snapshot)
-			console.log('image url');
-			v = snapshot
-
-		}, function error(err) {
-			console.log(err)
-
-		}, function complete(data) {
-			console.log(data);
-			$('#uploadstatus').html('<br>Upload Complete!<br><br>')
-			console.log('snapshot in done');
-			console.log(v);
-			rImage = v.task.N.downloadURLs[0];
-			$('#ImgUrl').val(rImage)
-			console.log(rImage)
-		});
-	});
-</script>*@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	<h2>Create</h2>
-
-	<h4>RecipeModel</h4>
-	<hr />
-	<div class="row">
-		<div class="col-md-4">
-			<form id="NewRecipeForm" asp-action="Create">
-				<input type="hidden" asp-for="UserId" class="form-control" value="@UserManager.GetUserId(User)" />
-				<input type="hidden" asp-for="ImgUrl" class="form-control" />
-				<div class="form-group">
-					<label asp-for="RecipeName" class="control-label"></label>
-					<input asp-for="RecipeName" class="form-control" />
-					<span asp-validation-for="RecipeName" class="text-danger"></span>
-				</div>
-				<div class="form-group">
-					<label asp-for="Story" class="control-label"></label>
-					<input asp-for="Story" class="form-control" />
-					<span asp-validation-for="Story" class="text-danger"></span>
-				</div>
-				<div class="form-group">
-					<label asp-for="Description" class="control-label"></label>
-					<input asp-for="Description" class="form-control" />
-					<span asp-validation-for="Description" class="text-danger"></span>
-				</div>
-
-				<div class="form-group">
-					<input type="file" name="pic" accept="image/*" class="required form-control" placeholder="Image from Web" aria-describedby="sizing-addon2"
-						   name='image' id="image" value="upload" d onchange="handleFiles(this.files)">
-					<span id="imgPreview"></span>
-					<br>
-					<progress id="uploader" value="0" max="100">0%</progress>
-					<span id="uploadstatus"></span>
-				</div>
-
-				<div class="form-group">
-					<label asp-for="OvenTemp" class="control-label"></label>
-					<input asp-for="OvenTemp" class="form-control" />
-					<span asp-validation-for="OvenTemp" class="text-danger"></span>
-				</div>
-				<div class="form-group">
-					<label asp-for="Servings" class="control-label"></label>
-					<input asp-for="Servings" class="form-control" />
-					<span asp-validation-for="Servings" class="text-danger"></span>
-				</div>
-				<div class="form-group">
-					<label asp-for="PrepTime" class="control-label"></label>
-					<input asp-for="PrepTime" class="form-control" />
-					<span asp-validation-for="PrepTime" class="text-danger"></span>
-				</div>
-				<div class="form-group">
-					<label asp-for="CookTime" class="control-label"></label>
-					<input asp-for="CookTime" class="form-control" />
-					<span asp-validation-for="CookTime" class="text-danger"></span>
-				</div>
-				<div class="form-group">
-					<div class="checkbox">
-						<label>
-							<input asp-for="Public" /> @Html.DisplayNameFor(model => model.Public)
-						</label>
-					</div>
-				</div>
-				<div id="ingredientDisplay" class="form-group">
-					<label class="control-label ">Ingredients</label>
-					<textarea asp-for="IngredientsJson" class="form-control" rows="5"></textarea>
-				</div>
-				<div id="directionDisplay" class="form-group">
-					<label class="control-label ">Directions</label>
-					<textarea asp-for="DirectionsJson" class="form-control" rows="5"></textarea>
-				</div>
-				<div class="form-group">
-					<label asp-for="Difficulty" class="control-label"></label>
-					<input asp-for="Difficulty" class="form-control" min="0" max="10" />
-					<span asp-validation-for="Difficulty" class="text-danger"></span>
-				</div>
-				<div class="form-group">
-					<label asp-for="RecipeGenre" class="control-label"></label>
-					<Select asp-for="RecipeGenre" class="form-control">
-						<option value="1">Breakfast</option>
-						<option value="2">Lunch</option>
-						<option value="3">Dinner</option>
-						<option value="4">Dessert</option>
-						<option value="5">Snack</option>
-						<option value="6">Vegetarian</option>
-						<option value="7">Vegan</option>
-						<option value="8">Gluten Free</option>
-						<option value="9">Gluten Free</option>
-					</Select>
-					<span asp-validation-for="RecipeGenre" class="text-danger"></span>
-				</div>
-				<div class="form-group">
-					<input type="submit" value="Create" class="btn btn-default" onclick="submitForm(event)" />
-				</div>
-			</form>
-		</div>
-	</div>
-
+	</form>
 	<div>
-		<a asp-action="Index">Back to List</a>
+		<a asp-action="Index" class=" pull-left">Cancel</a>
+		<span id="next_step_btn" class="btn btn-default pull-right " onclick="displayStep(2)">
+			NEXT STEP <i class="fa fa-chevron-right" aria-hidden="true"></i>
+		</span>
+
+		<span id="prev_step_btn" class="btn btn-default pull-right hidden" onclick="displayStep(1)">
+			<i class="fa fa-chevron-left" aria-hidden="true"></i> PREVIOUS STEP
+		</span>
+
 	</div>
 
-	@section Scripts {
-		@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+</div>
 
-	}
-	<script src="https://www.gstatic.com/firebasejs/4.6.1/firebase.js"></script>
 
-	<script>
+@section Scripts {
+	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}
+<script src="https://www.gstatic.com/firebasejs/4.6.1/firebase.js"></script>
+
+<script>
 		var ingNum = 2,
 			dirNum = 2;
 
@@ -339,8 +167,12 @@
 			projectId: "grab-a-bite-df6c2",
 			storageBucket: "grab-a-bite-df6c2.appspot.com",
 			messagingSenderId: "915542502205"
-		};
-		firebase.initializeApp(config);
+	};
+	firebase.initializeApp(config);
+
+	$('document').ready(function () {
+		requireFields()
+	})
 
 
 		var database = firebase.database();
@@ -360,7 +192,7 @@
 				}
 
 				img = document.createElement("img");
-				img.classList.add("obj");
+				img.classList.add("UploadedImg");
 				img.file = file;
 				document.getElementById('imgPreview').appendChild(img);
 
@@ -478,8 +310,107 @@
 
 			$.ajax(settings).done(function (response) {
 				console.log(response);
-			});
+			}).fail(function (err) {
+				console.log(err)
+				alert('There was an error with your submission\n\n Please ensure you have filled in all of the required fields' );
+			})
 
 		}
 
-	</script>
+
+		function displayStep(stepNum) {
+			stepNum = parseInt(stepNum)
+			var PrevStep = stepNum - 1
+			var NextStep = stepNum + 1
+
+			//display current step
+			$('.step_display').addClass('hidden')
+			$('#step' + stepNum + '_display').removeClass('hidden');
+
+			//display appropriate buttons
+			if (stepNum == 1) {
+				$('#prev_step_btn').addClass('hidden');
+				$('#next_step_btn').removeClass('hidden');
+			} else if (stepNum == 2) {
+				$('#prev_step_btn').removeClass('hidden');
+				$('#next_step_btn').removeClass('hidden');
+			} else if (stepNum == 3) {
+				$('#prev_step_btn').removeClass('hidden');
+				$('#next_step_btn').removeClass('hidden');
+			} else if (stepNum == 4) {
+				$('#prev_step_btn').removeClass('hidden');
+				$('#next_step_btn').addClass('hidden');
+			}
+
+			//change step function
+			$('#prev_step_btn').attr('onclick', 'displayStep(' + PrevStep+')');
+			$('#next_step_btn').attr('onclick', 'displayStep(' + NextStep + ')');
+
+			//display step
+			$('.step').removeClass('Active_Step')
+			$('#step' + stepNum).addClass('Active_Step');
+
+
+			console.log('Prev ' + PrevStep)
+			console.log('curr ' + stepNum)
+			console.log('Next ' + NextStep)
+			//$('#step' + prevStep + '_display').removeClass('hidden');
+
+		}
+
+	function printValue() {
+		var x = document.getElementById('difficulty-display');
+		var y = document.getElementById('Difficulty');
+		var data = y.value;
+		var difficulty;
+		switch (y.value) {
+			case "1":
+				difficulty = " Very Easy";
+				break;
+			case '2':
+			case '3':
+				difficulty = " Easy";
+				break;
+			case '4':
+			case '5':
+			case '6':
+				difficulty = " Average";
+				break;
+			case '7':
+			case '8':
+			case '9':
+				difficulty = " Hard";
+				break;
+			case '10':
+				difficulty = " Very Difficult";
+				break;
+		}
+
+		x.innerHTML = data + difficulty
+	}
+
+	function requireFields() {
+		let inputChk = $('input'),
+			textareaChk = $('textarea'),
+			selectChk = $('select');
+		style = "color:red; font-size:2em;position:relative;top: 11px;";
+		$(inputChk).each(function (ind, val) {
+			var input = $(val).attr('required')
+			if (typeof input !== typeof undefined && input !== false) {
+				$(val).siblings('label').after('<span style="' + style+'">*</span>')
+			}
+		})
+		$(textareaChk).each(function (ind, val) {
+			var input = $(val).attr('required')
+			if (typeof input !== typeof undefined && input !== false) {
+				$(val).siblings('label').after('<span style="' + style +'">*</span>')
+			}
+		})
+		$(selectChk).each(function (ind, val) {
+			var input = $(val).attr('required')
+			if (typeof input !== typeof undefined && input !== false) {
+				$(val).siblings('label').after('<span style="' + style +'">*</span>')
+			}
+		})
+	}
+</script>

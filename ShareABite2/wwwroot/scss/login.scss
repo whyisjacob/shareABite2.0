@@ -1,0 +1,92 @@
+﻿.login_form {
+	display: block;
+	width: 100%;
+	max-width: 500px;
+	background-color: #FFF;
+	margin: 0;
+	font-family: 'Source Sans Pro', sans-serif;
+
+	.inputGroup {
+		margin: 0 0 2em;
+		padding: 0;
+		position: relative;
+
+		&:last-of-type {
+			margin-bottom: 0;
+		}
+	}
+
+	label {
+		margin: 0 0 12px;
+		display: block;
+		font-size: 1.25em;
+		font-weight: 700;
+		font-family: inherit;
+	}
+
+	input[type='email'], input[type="text"], input[type='password'] {
+		display: block;
+		margin: 0;
+		padding: 0 1em 0;
+		background-color: $inputBG;
+		border: solid 1px $medBrand;
+		border-radius: 4px;
+		-webkit-appearance: none;
+		box-sizing: border-box;
+		width: 100%;
+		height: 65px;
+		font-size: 1.55em;
+		color: #353538;
+		font-weight: 600;
+		font-family: inherit;
+		transition: box-shadow .2s linear, border-color .25s ease-out;
+
+		&:focus {
+			outline: none;
+			box-shadow: 0px 2px 10px rgba(0,0,0,.1);
+			border: solid 2px $medBrand;
+		}
+	}
+
+
+	button {
+		display: block;
+		margin: 0;
+		padding: .65em 1em 1em;
+		background-color: $medBrand;
+		border: none;
+		border-radius: 4px;
+		box-sizing: border-box;
+		box-shadow: none;
+		width: 100%;
+		height: 65px;
+		font-size: 1.55em;
+		color: #FFF;
+		font-weight: 600;
+		font-family: inherit;
+		transition: background-color .2s ease-out;
+
+		&:hover, &:active {
+			background-color: $darkBrand;
+		}
+	}
+}
+
+
+.login_hero{
+	font-size:1.25em;
+	line-height:1.35em;
+	letter-spacing:1px;
+	font-weight:600;
+	margin:10px 0 20px;
+}
+.login_hero_item {
+	font-size: 1.25em;
+	padding: 10px 20px;
+
+	.fa {
+		padding-right: 10px;
+		color: $darkBrand;
+		font-size: 1.5em;
+	}
+}

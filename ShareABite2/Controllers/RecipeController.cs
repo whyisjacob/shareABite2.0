@@ -182,13 +182,13 @@ namespace ShareABite2.Controllers
 		{
 			return _context.RecipeModel.Any(e => e.RecipeId == id);
 		}
-		//GET: Recipe/MostRecentRecipes
-		public IActionResult MostRecentRecipes()
+		//GET: Recipe/MostRecentRecipes/id
+		public IActionResult MostRecentRecipes( int id)
 		{
 
 			var recipeModel = (from p in _context.RecipeModel
 							   orderby p.RecipeId descending
-							   select p).Take(6);
+							   select p).Take(id);
 
 
 			return Ok(recipeModel);

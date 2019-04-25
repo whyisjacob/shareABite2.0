@@ -15,44 +15,110 @@ else
 
 	<partial name="_HeroSlider" />
 
+	<div class="row home_content">
+		<div class="col-sm-12">
+			<h1>Saving Recipe Memories just got Easy</h1>
+			<div class="col-sm-8 home_Content_text">
+				<h2>The problem</h2>
+				<p>
+					Saving family recipes has always been a challenge. Massive binders, heavy boxes, and a seemingly endless supply of 3x5 cards with recipes that have been handed down for generations. You work to put them in a shared document in the cloud and publish lovingly crafted books to share with your family.
+				</p>
+				<p>
+					While that effort is amazing and it takes wonderful people to do that type of work. However we can lose all of those recipes in an instant when nature takes it's course.
+				</p>
 
-	<div class="row">
-		<div class="col-md-3">
-			<h2>Application uses</h2>
-			<ul>
-				<li>Sample pages using ASP.NET Core MVC</li>
-				<li>Theming using <a href="https://go.microsoft.com/fwlink/?LinkID=398939">Bootstrap</a></li>
-			</ul>
+			</div>
+			<div class="col-sm-4">
+				<img src="~/images/Cooking_frustrated.jpeg" width="100%" />
+			</div>
 		</div>
-		<div class="col-md-3">
-			<h2>How to</h2>
-			<ul>
-				<li><a href="https://go.microsoft.com/fwlink/?LinkID=398600">Add a Controller and View</a></li>
-				<li><a href="https://go.microsoft.com/fwlink/?LinkId=699315">Manage User Secrets using Secret Manager.</a></li>
-				<li><a href="https://go.microsoft.com/fwlink/?LinkId=699316">Use logging to log a message.</a></li>
-				<li><a href="https://go.microsoft.com/fwlink/?LinkId=699317">Add packages using NuGet.</a></li>
-				<li><a href="https://go.microsoft.com/fwlink/?LinkId=699319">Target development, staging or production environment.</a></li>
-			</ul>
-		</div>
-		<div class="col-md-3">
-			<h2>Overview</h2>
-			<ul>
-				<li><a href="https://go.microsoft.com/fwlink/?LinkId=518008">Conceptual overview of what is ASP.NET Core</a></li>
-				<li><a href="https://go.microsoft.com/fwlink/?LinkId=699320">Fundamentals of ASP.NET Core such as Startup and middleware.</a></li>
-				<li><a href="https://go.microsoft.com/fwlink/?LinkId=398602">Working with Data</a></li>
-				<li><a href="https://go.microsoft.com/fwlink/?LinkId=398603">Security</a></li>
-				<li><a href="https://go.microsoft.com/fwlink/?LinkID=699321">Client side development</a></li>
-				<li><a href="https://go.microsoft.com/fwlink/?LinkID=699322">Develop on different platforms</a></li>
-				<li><a href="https://go.microsoft.com/fwlink/?LinkID=699323">Read more on the documentation site</a></li>
-			</ul>
-		</div>
-		<div class="col-md-3">
-			<h2>Run &amp; Deploy</h2>
-			<ul>
-				<li><a href="https://go.microsoft.com/fwlink/?LinkID=517851">Run your app</a></li>
-				<li><a href="https://go.microsoft.com/fwlink/?LinkID=517853">Run tools such as EF migrations and more</a></li>
-				<li><a href="https://go.microsoft.com/fwlink/?LinkID=398609">Publish to Microsoft Azure Web Apps</a></li>
-			</ul>
+		<div class="col-sm-12">
+			<div class="col-sm-4">
+				<img src="~/images/cooking_success.jpeg" width="100%" />
+			</div>
+			<div class="col-sm-8 home_Content_text">
+				<h2>The solution</h2>
+				<p>
+					Instead of going through all that work time and time again. Save each recipe once and have access to it forever. Share a Bite carefully stores each recipe in the cloud and enables you to endlessly share the recipe with all of your family and friends. Say goodbye to reading old moldy notecards with hard-to-read recipes
+				</p>
+				<a asp-controller="Recipe" asp-action="Create" class="btn btn-primary">Save Your Recipes</a>
+			</div>
+
 		</div>
 	</div>
+	<hr />
+	<div class="row home_content">
+		<div class="col-sm-12">
+			<h2>Recipes Recently Saved</h2>
+			<div id="recentCommunityRecipes" class="row">
+			</div>
+		</div>
+	</div>
+
+	<script>
+
+
+	var userIdNum = '@UserManager.GetUserId(User)'
+
+	$(document).ready(function () {
+
+		loadCommunityRecipes(12)
+
+	})
+
+	function loadCommunityRecipes(count) {
+		var settings = {
+			"async": true,
+			"crossDomain": true,
+			"url": "api/Recipe/MostRecentRecipes/"+count,
+			"method": "GET",
+			"headers": {
+				"cache-control": "no-cache",
+			}
+		}
+
+		$.ajax(settings).done(function (response) {
+			console.log(response);
+			$(response).each(function (ind, val) {
+				$('#recentCommunityRecipes').append('<div class="col-sm-4 recipe"><h3>' + val.recipeName + '</h3>' +
+					'<div class="jumbotron" style="background-image: url(' + val.imgUrl + ')"></div>' +
+					'<div class="row recipe-Details">' +
+					'<div class="col-sm-6 pull-left">' + val.cookTime + " Minutes" + "</div>" +
+					'<div class="col-sm-6 pull-right">' + val.servings + " People" + "</div>" +
+					'</div>' +
+					//display recipe desc
+					'<h3>Description</h3>' +
+					'<p class="recipe-story" data-RecipeId="' + val.recipeId + '">' +
+					val.description +
+					'</p>' +
+					//display view, edit, and share btns
+					'<div class="row recipe-footer">' +
+					'<div class="col-sm-4 row recipe-footer-share">' +
+					//view recipe
+					'<a class="col-sm-6" href="/View/Recipe/' + val.recipeId + ' " class="">' +
+					'<span class="fa fa-eye" aria-hidden="true"></span>' +
+					'</a>' +
+					'</div>' +
+					'<div class="col-sm-4 recipe-footer-share">' +
+					//twitter share code
+					'</div>' +
+					'<div class="col-sm-4 recipe-footer-share">' +
+					'<div class="fb-share-button" data-href="https://shareabiteweb.azurewebsites.net/view/recipe/' + val.recipeId + '"data-layout="button_count">' +
+					'</div>' +
+					'</div>' +
+					'</div>' +
+					'</div>' +
+					'</div>' +
+
+					'</div>')
+
+			})
+
+		})
+	}
+
+	</script>
+
+
 }
+

@@ -18,7 +18,7 @@
 	<div class="col-sm-12">
 		<p>We are glad you have decided to join in the effort of preserving your recipes and sharing them with others. We hope you enjoy saving your favorite recipes. Should you encounter any challenges please <a href="#">Reach out to us</a> and we will take care of you.</p>
 
-			<h4><span id="userRecipeCount"></span></h4>
+			<h3><span id="userRecipeCount"></span></h3>
 
 		</div>
 	<div class="col-sm-12 ">
@@ -50,17 +50,17 @@
 
 	$(document).ready(function () {
 
-		loadCommunityRecipes()
+		loadCommunityRecipes(6)
 		loadUserRecipes(userIdNum)
 		countUserRecipes(userIdNum);
 
 	})
 
-	function loadCommunityRecipes() {
+	function loadCommunityRecipes(count) {
 		var settings = {
 			"async": true,
 			"crossDomain": true,
-			"url": "/Recipe/MostRecentRecipes",
+			"url": "/Recipe/MostRecentRecipes/"+count,
 			"method": "GET",
 			"headers": {
 				"cache-control": "no-cache",
@@ -77,7 +77,7 @@
 					'<div class="col-sm-6 pull-right">' + val.servings + " People" + "</div>" +
 					'</div>' +
 					//display recipe desc
-					'<h4>Description</h4>' +
+					'<h3>Description</h3>' +
 					'<p class="recipe-story" data-RecipeId="' + val.recipeId + '">' +
 					val.description +
 					'</p>' +
@@ -86,11 +86,11 @@
 					'<div class="col-sm-4 row recipe-footer-share">' +
 					//edit
 					'<a class="col-sm-6" href="/Recipe/Edit/' + val.recipeId + '" target="_blank">' +
-					'<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>' +
+					'<span class="fa fa-pencil-square-o" aria-hidden="true"></span>' +
 					'</a>' +
 					//view recipe
 					'<a class="col-sm-6" href="/View/Recipe/' + val.recipeId + ' " class="">' +
-					'<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>' +
+					'<span class="fa fa-eye" aria-hidden="true"></span>' +
 					'</a>' +
 					'</div>' +
 					'<div class="col-sm-4 recipe-footer-share">' +
@@ -133,7 +133,7 @@
 					'<div class="col-sm-6 pull-right">' + val.servings + " People" + "</div>" +
 					'</div>' +
 					//display recipe desc
-					'<h4>Description</h4>' +
+					'<h3>Description</h3>' +
 					'<p class="recipe-story" data-RecipeId="' + val.recipeId + '">' +
 					val.description +
 					'</p>' +
@@ -142,11 +142,11 @@
 					'<div class="col-sm-4 recipe-footer-share">' +
 					//edit
 					'<a class="col-sm-6" href="/Recipe/Edit/' + val.recipeId + '" target="_blank">' +
-					'<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>' +
+					'<span class="fa fa-pencil-square-o" aria-hidden="true"></span>' +
 					'</a>' +
 					//view recipe
 					'<a class="col-sm-6" href="/View/Recipe/' + val.recipeId + ' " class="">' +
-					'<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>' +
+					'<span class="fa fa-eye" aria-hidden="true"></span>' +
 					'</a>' +
 					'</div>' +
 
