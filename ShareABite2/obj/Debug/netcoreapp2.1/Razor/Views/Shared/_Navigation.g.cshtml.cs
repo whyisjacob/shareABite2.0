@@ -73,7 +73,7 @@ using ShareABite2.Models;
 			");
             EndContext();
             BeginContext(365, 102, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8ca4917c1f754e72a5be654b694a744e", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3ac6abaa76fa406aa2cc975cd7679659", async() => {
                 BeginContext(442, 21, true);
                 WriteLiteral("\r\n\t\t\t\tShareABite\r\n\t\t\t");
                 EndContext();
@@ -100,7 +100,7 @@ using ShareABite2.Models;
             WriteLiteral("\r\n\t\t</div>\r\n\t\t<div class=\"navbar-collapse collapse\">\r\n\t\t\t<ul class=\"nav navbar-nav\">\r\n\t\t\t\t<li>\r\n\t\t\t\t\t");
             EndContext();
             BeginContext(568, 65, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4e843018f2f94f1a896050a7b112d42c", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "a687da3d45904b64bf7a2c280be2d5ac", async() => {
                 BeginContext(624, 5, true);
                 WriteLiteral("About");
                 EndContext();
@@ -126,7 +126,7 @@ using ShareABite2.Models;
             WriteLiteral("\r\n\t\t\t\t</li>\r\n\t\t\t\t<li>\r\n\t\t\t\t\t");
             EndContext();
             BeginContext(661, 79, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "40a9a1426bfd451fb16fc079d9ecd013", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4f1e5b32c8f5460ab71c7eaac2506bac", async() => {
                 BeginContext(724, 12, true);
                 WriteLiteral("Meal Planner");
                 EndContext();
@@ -161,7 +161,7 @@ using ShareABite2.Models;
             WriteLiteral("\t\t\t\t\t<li>\r\n\t\t\t\t\t\t");
             EndContext();
             BeginContext(820, 72, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "dbe929b0aa4c487492f81d3376f54eec", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c9eaa0d5b8804238a8e91c99ae79cab0", async() => {
                 BeginContext(878, 10, true);
                 WriteLiteral("My Recipes");
                 EndContext();
@@ -187,7 +187,7 @@ using ShareABite2.Models;
             WriteLiteral("\r\n\t\t\t\t\t</li>\r\n\t\t\t\t\t<li>\r\n\t\t\t\t\t\t");
             EndContext();
             BeginContext(923, 73, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5a26191c725a4533853fa26d172e103d", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "134cecc20cfd46619347e6bdc65f6c7f", async() => {
                 BeginContext(982, 10, true);
                 WriteLiteral("New Recipe");
                 EndContext();
@@ -224,7 +224,7 @@ using ShareABite2.Models;
             WriteLiteral("\t\t\t\t\t<li>\r\n\t\t\t\t\t\t");
             EndContext();
             BeginContext(1053, 69, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "bbcbc1f9e8724a678d8de25533985c1c", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "42e0f50eb7204e98ac00dc37beef143a", async() => {
                 BeginContext(1111, 7, true);
                 WriteLiteral("Pricing");
                 EndContext();
@@ -259,7 +259,7 @@ using ShareABite2.Models;
             WriteLiteral("\r\n\t\t\t</ul>\r\n\t\t\t");
             EndContext();
             BeginContext(1160, 32, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("partial", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "6e21e962fcb448e5956c3f2977e2f581", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("partial", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "557bd3d4f6c1492180b13a6a90f56b1c", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_TagHelpers_PartialTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.PartialTagHelper>();

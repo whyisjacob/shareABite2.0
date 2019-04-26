@@ -71,7 +71,7 @@ using ShareABite2.Models;
 	");
             EndContext();
             BeginContext(808, 71, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3fcbecd1885c4af08445fc07df31af4a", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "964109915b68488fa4125021a550467c", async() => {
                 BeginContext(869, 6, true);
                 WriteLiteral("Log in");
                 EndContext();
@@ -106,7 +106,7 @@ using ShareABite2.Models;
             WriteLiteral(", or ");
             EndContext();
             BeginContext(884, 90, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f848ab1dff0f433180fccb5231176659", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e41b5b7dd5fe401e9f23d2f06bd61bbd", async() => {
                 BeginContext(948, 22, true);
                 WriteLiteral("register as a new user");
                 EndContext();

@@ -3,6 +3,9 @@
 @import url('https://fonts.googleapis.com/css?family=PT+Sans|Raleway');
 $brand: #f7921e;
 $primary-color: $brand;
+$darkBrand: darken($brand, 10%);
+$medBrand: lighten($brand, 25%);
+$inputBG: lighten($brand, 45%);
 
 body {
 	margin-top: 40px;

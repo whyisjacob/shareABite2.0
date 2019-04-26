@@ -7,7 +7,6 @@
 	ViewData["Title"] = "Index";
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <h2>Meal Planner</h2>
 
 <p>We have many different recipes for you to include in your weekly meals. Allow us to provide better results by choosing what type of recipes you would like</p>
@@ -20,19 +19,20 @@
 		<button class="btn btn-default mealType" data-value="4">Dessert</button>
 		<button class="btn btn-default mealType" data-value="5">Snack</button>
 		@*<button class="btn btn-default mealType" data-value="4">Dessert</button>
-		<button class="btn btn-default mealType" data-value="4">Dessert</button>
-		<button class="btn btn-default mealType" data-value="4">Dessert</button>*@
+			<button class="btn btn-default mealType" data-value="4">Dessert</button>
+			<button class="btn btn-default mealType" data-value="4">Dessert</button>*@
 
 		<h3>Difficulty</h3>
-		<button class="btn btn-default difficulty" data-value="3">Easy Please</button>
-		<button class="btn btn-default difficulty" data-value="6">Up to Medium Difficulty</button>
-		<button class="btn btn-default difficulty" data-value="11">It doesn't matter</button>
+		<button class="btn btn-default difficulty" data-value="3">Easy</button>
+		<button class="btn btn-default difficulty" data-value="6">Medium</button>
+		<button class="btn btn-default difficulty" data-value="9">Hard</button>
+		<button class="btn btn-default difficulty" data-value="11">Any</button>
 
-		<h3>Cook Time</h3>
+		<h3>Prep Time</h3>
 		<button class="btn btn-default cookTime" data-value="15">15 Minutes or less</button>
 		<button class="btn btn-default cookTime" data-value="30">30 Minutes or less</button>
 		<button class="btn btn-default cookTime" data-value="40">40 Minutes or less</button>
-		<button class="btn btn-default cookTime" data-value="99999">It doesn't matter</button>
+		<button class="btn btn-default cookTime" data-value="99999">Any time</button>
 	</div>
 	<div class="col-sm-6">
 		<h3>Special Options</h3>
@@ -56,41 +56,53 @@
 		}
 	</div>
 </div>
-<div class="row">
+<div id="mealPlan" class="row hidden">
 	<div class="col-sm-12">
 		<hr />
 
-		<h2>Suggested <span id="mealtype"></span> Plans</h2>
+		<h2><span id="mealtype"></span> Plans</h2>
 		<h5>Difficulty: <span id="difficultyType"></span></h5>
-		<h5><img width='15px' src='images/clock.png' alt='Total Prep and Cook Time' class='directions_image'> <span id="timeToCook"></span></h5>
+		@*<h5><img width='15px' src='images/clock.png' alt='Total Prep and Cook Time' class='directions_image'> <span id="timeToCook"></span></h5>*@
 
-		<table class="table">
-			<thead>
-				<tr>
-					<td>Sunday</td>
-					<td>Monday</td>
-					<td>Tuesday</td>
-					<td>Wednesday</td>
-					<td>Thursday</td>
-					<td>Friday</td>
-					<td>Saturday</td>
-				</tr>
-			</thead>
-			<tbody id="mealList">
-				<tr>
-					<td id="mealDisplay_1" class="mealDisplay"></td>
-					<td id="mealDisplay_2" class="mealDisplay"></td>
-					<td id="mealDisplay_3" class="mealDisplay"></td>
-					<td id="mealDisplay_4" class="mealDisplay"></td>
-					<td id="mealDisplay_5" class="mealDisplay"></td>
-					<td id="mealDisplay_6" class="mealDisplay"></td>
-					<td id="mealDisplay_7" class="mealDisplay"></td>
+		<div id="" class="responsive-table ">
+			<section class="day-section-sunday">
+				<h2 class="day-content head">Sunday</h2>
+				<p id="mealDisplay_1" class="day-content recipe mealDisplay">No Recipes to Display</p>
+			</section>
 
-				</tr>
-			</tbody>
-		</table>
+			<section class="day-section-monday">
+				<h2 class="day-content head">Monday</h2>
+				<p id="mealDisplay_2" class="day-content recipe mealDisplay">No Recipes to Display</p>
+			</section>
+
+			<section class="day-section-tuesday">
+				<h2 class="day-content head">Tuesday</h2>
+				<p id="mealDisplay_3" class="day-content recipe mealDisplay">No Recipes to Display</p>
+			</section>
+
+			<section class="day-section-wednesday">
+				<h2 class="day-content head">Wednesday</h2>
+				<p id="mealDisplay_4" class="day-content recipe mealDisplay">No Recipes to Display</p>
+			</section>
+
+			<section class="day-section-thursday">
+				<h2 class="day-content head">Thursday</h2>
+				<p id="mealDisplay_5" class="day-content recipe mealDisplay">No Recipes to Display</p>
+			</section>
+
+			<section class="day-section-friday">
+				<h2 class="day-content head">Friday</h2>
+				<p id="mealDisplay_6" class="day-content recipe mealDisplay">No Recipes to Display</p>
+			</section>
+
+			<section class="day-section-saturday">
+				<h2 class="day-content head">Saturday</h2>
+				<p id="mealDisplay_7" class="day-content recipe mealDisplay">No Recipes to Display</p>
+			</section>
+		</div>
 	</div>
 </div>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script>
 	let chosenRecipes = [],
@@ -129,6 +141,7 @@
 	})
 
 	function myRecipes() {
+		dataCheck();
 		$('#mealtype').html(mealTypeHtml)
 		$('#difficultyType').html(difficultyHtml)
 		$('#timeToCook').html(cookTimeHtml)
@@ -139,27 +152,47 @@
 
 }
 
-function allRecipes() {
+	function allRecipes() {
+		dataCheck();
+
 	$('#mealtype').html(mealTypeHtml)
 	$('#difficultyType').html(difficultyHtml)
 	$('#timeToCook').html(cookTimeHtml)
 	$.get("/api/Recipe/RandomRecipe/" + mealType + "/" + difficulty + "/" + cookTime, function (data) {
 		console.log(data)
 		buildDisplay(data)
+		$('#mealPlan').removeClass('hidden');
 	});
 }
 
 function buildDisplay(data) {
 	//Clear list
 	$('.mealDisplay').each(function (i, val) {
-		$(val).html(' ');
+		$(val).html('No Recipes to Display');
 	});
 
 	var count = 1;
 	data.forEach(function (recipe) {
-		$("#mealDisplay_" + count).html("<h4>" + recipe.recipeName + "</h4> <img width='150px' src='" + recipe.imgUrl + "' alt='" + recipe.recipeName + "'><br><p><img width='15px' src='images/clock.png' alt='Total Prep and Cook Time' class='directions_image'> " + recipe.cookTime + " minutes<br><img width='15px' src='images/servings.png' alt='Servings' class='directions_image'> " + recipe.servings + " servings</p> <a href='/view/recipe/" + recipe.recipeId + "' target='_blank'>View Recipe</a>")
+		$("#mealDisplay_" + count).html("<strong>" + recipe.recipeName + "</strong> <div class='meal_planner_img' style='background-image:url(" + recipe.imgUrl + ")'></div><p><img width='20px' src='images/clock.png' alt='Total Prep and Cook Time' class='directions_image_mp'> " + recipe.cookTime + " minutes<br><img width='20px' src='images/servings.png' alt='Servings' class='directions_image_mp'> " + recipe.servings + " servings</p> <a href='/view/recipe/" + recipe.recipeId + "' target='_blank'>View Recipe</a>");
+		$("#mealDisplay_" + count).attr('data-recipeId', recipe.recipeId)
+		$("#mealDisplay_" + count).attr('onclick', 'loadRecipe(' + recipe.recipeId + ')');
 		count++
 	})
-}
+	}
 
+	function loadRecipe(Id) {
+		window.location.href = "/view/recipe/"+Id
+	}
+
+
+	function dataCheck() {
+		console.log(mealType)
+		console.log(difficulty)
+		console.log(cookTime)
+		if (mealType == undefined || difficulty == undefined || cookTime == undefined) {
+			swal("Oops", "Please select the type of recipes you are looking for", "error")
+		} else {
+			// do nothing
+		}
+	}
 </script>

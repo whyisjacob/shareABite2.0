@@ -1,2 +1,17 @@
-﻿body {
+﻿.home_content{
+	padding-bottom:30px;
+}
+.home_Content_text {
+	p {
+		font-size: 1.1em;
+		letter-spacing: .5px;
+		line-height: 1.5em;
+		font-weight: 600;
+	}
+	a{
+		width:100%;
+		font-size:1.25em;
+		font-weight:800;
+
+	}
 }
